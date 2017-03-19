@@ -19,10 +19,10 @@ func main() {
 	defer fp.Close()
 
 	// regexp setup
-	rLease    := regexp.MustCompile(`lease [0-9¥.]+ {`)
-    rStarts   := regexp.MustCompile(`starts .*;`)
-    rHwEth    := regexp.MustCompile(`hardware ethernet [0-9A-Fa-f:-]+;`)
-    rHostname := regexp.MustCompile(`client-hostname ".*";`)
+	rLease    := regexp.MustCompile(`lease ([0-9¥.]+) {`)
+    rStarts   := regexp.MustCompile(`starts ([0-9]) (.*);`)
+    rHwEth    := regexp.MustCompile(`hardware ethernet ([0-9A-Fa-f:-]+);`)
+    rHostname := regexp.MustCompile(`client-hostname "(.*)";`)
     rEnd      := regexp.MustCompile(`}`)
 
     // start reading
@@ -38,17 +38,22 @@ func main() {
 		}
 
         // try each regexp
-        if rLease.MatchString(line) {
-            fmt.Println("lease {")
+        var res []string = nil
+        res = rLease.FindStringSubmatch(line)
+        if res != nil {
+            fmt.Println("lease " + res[len(res)-1] + " {")
         }
-        if rStarts.MatchString(line) {
-            fmt.Println("start: ")
+        res = rStarts.FindStringSubmatch(line)
+        if res != nil {
+            fmt.Println("start: " + res[len(res)-1])
         }
-        if rHwEth.MatchString(line) {
-            fmt.Println("hardware ethernet: ")
+        res = rHwEth.FindStringSubmatch(line)
+        if res != nil {
+            fmt.Println("hardware ethernet: " + res[len(res)-1])
         }
-        if rHostname.MatchString(line) {
-            fmt.Println("client-hostname: ")
+        res = rHostname.FindStringSubmatch(line)
+        if res != nil {
+            fmt.Println("client-hostname: " + res[len(res)-1])
         }
         if rEnd.MatchString(line) {
             fmt.Println("}")
