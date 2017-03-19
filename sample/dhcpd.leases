@@ -1,0 +1,1733 @@
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.2.5
+
+lease 192.168.11.137 {
+  starts 3 2016/10/05 05:49:30;
+  ends 3 2016/10/05 06:21:30;
+  tstp 3 2016/10/05 06:21:30;
+  cltt 3 2016/10/05 05:49:30;
+  binding state free;
+  hardware ethernet 62:f8:1d:ad:fe:3a;
+  uid "\001b\370\035\255\376:";
+}
+lease 192.168.11.213 {
+  starts 3 2016/10/05 05:49:44;
+  ends 3 2016/10/05 06:21:44;
+  tstp 3 2016/10/05 06:21:44;
+  cltt 3 2016/10/05 05:49:44;
+  binding state free;
+  hardware ethernet 88:57:ee:28:14:9e;
+  uid "\001\210W\356(\024\236";
+}
+lease 192.168.11.239 {
+  starts 5 2016/10/14 10:38:13;
+  ends 5 2016/10/14 10:54:13;
+  tstp 5 2016/10/14 10:54:13;
+  cltt 5 2016/10/14 10:38:13;
+  binding state free;
+  hardware ethernet fc:c2:de:36:5c:37;
+  uid "\001\374\302\3366\\7";
+}
+lease 192.168.11.254 {
+  starts 6 2016/10/15 07:12:49;
+  ends 6 2016/10/15 07:28:49;
+  tstp 6 2016/10/15 07:28:49;
+  cltt 6 2016/10/15 07:12:49;
+  binding state free;
+  hardware ethernet b8:27:eb:44:85:f4;
+}
+lease 192.168.11.187 {
+  starts 6 2016/10/22 06:11:50;
+  ends 6 2016/10/22 06:27:50;
+  tstp 6 2016/10/22 06:27:50;
+  cltt 6 2016/10/22 06:11:50;
+  binding state free;
+  hardware ethernet e8:99:c4:87:30:b6;
+  uid "\001\350\231\304\2070\266";
+}
+lease 192.168.11.178 {
+  starts 1 2016/11/21 10:40:19;
+  ends 1 2016/11/21 10:56:19;
+  tstp 1 2016/11/21 10:56:19;
+  cltt 1 2016/11/21 10:40:19;
+  binding state free;
+  hardware ethernet f8:bc:12:a0:0e:6e;
+  uid "\001\370\274\022\240\016n";
+}
+lease 192.168.11.188 {
+  starts 3 2016/11/23 07:58:05;
+  ends 3 2016/11/23 08:14:05;
+  tstp 3 2016/11/23 08:14:05;
+  cltt 3 2016/11/23 07:58:05;
+  binding state free;
+  hardware ethernet 78:4b:87:a3:75:e0;
+  uid "\001xK\207\243u\340";
+}
+lease 192.168.11.215 {
+  starts 6 2016/11/26 03:50:37;
+  ends 6 2016/11/26 04:06:37;
+  tstp 6 2016/11/26 04:06:37;
+  cltt 6 2016/11/26 03:50:37;
+  binding state free;
+  hardware ethernet b8:27:eb:cd:d7:4f;
+  uid "\001\270'\353\315\327O";
+}
+lease 192.168.11.236 {
+  starts 6 2016/11/26 08:23:04;
+  ends 6 2016/11/26 08:39:04;
+  tstp 6 2016/11/26 08:39:04;
+  cltt 6 2016/11/26 08:23:04;
+  binding state free;
+  hardware ethernet bc:6e:64:d8:62:b1;
+}
+lease 192.168.11.176 {
+  starts 6 2016/11/26 08:25:17;
+  ends 6 2016/11/26 08:41:17;
+  tstp 6 2016/11/26 08:41:17;
+  cltt 6 2016/11/26 08:25:17;
+  binding state free;
+  hardware ethernet 8c:3a:e3:16:bd:33;
+  uid "\001\214:\343\026\2753";
+}
+lease 192.168.11.180 {
+  starts 0 2016/11/27 10:54:56;
+  ends 0 2016/11/27 11:10:56;
+  tstp 0 2016/11/27 11:10:56;
+  cltt 0 2016/11/27 10:54:56;
+  binding state free;
+  hardware ethernet 00:cd:fe:1e:b7:33;
+  uid "\001\000\315\376\036\2673";
+}
+lease 192.168.11.199 {
+  starts 3 2016/12/07 10:48:51;
+  ends 3 2016/12/07 11:04:51;
+  tstp 3 2016/12/07 11:04:51;
+  cltt 3 2016/12/07 10:48:51;
+  binding state free;
+  hardware ethernet 90:b6:86:0c:a6:ed;
+  uid "\001\220\266\206\014\246\355";
+}
+lease 192.168.11.161 {
+  starts 5 2016/12/09 09:13:24;
+  ends 5 2016/12/09 09:29:24;
+  tstp 5 2016/12/09 09:29:24;
+  cltt 5 2016/12/09 09:13:24;
+  binding state free;
+  hardware ethernet b8:8d:12:1d:eb:26;
+  uid "\001\270\215\022\035\353&";
+}
+lease 192.168.11.186 {
+  starts 2 2016/12/13 11:32:07;
+  ends 2 2016/12/13 11:48:07;
+  tstp 2 2016/12/13 11:48:07;
+  cltt 2 2016/12/13 11:32:07;
+  binding state free;
+  hardware ethernet b8:27:eb:3b:0e:b8;
+  uid "\001\270'\353;\016\270";
+}
+lease 192.168.11.179 {
+  starts 3 2016/12/14 09:44:25;
+  ends 3 2016/12/14 10:16:25;
+  tstp 3 2016/12/14 10:16:25;
+  cltt 3 2016/12/14 09:44:25;
+  binding state free;
+  hardware ethernet 70:ec:e4:90:fc:97;
+  uid "\001p\354\344\220\374\227";
+}
+lease 192.168.11.175 {
+  starts 5 2016/12/16 05:34:52;
+  ends 5 2016/12/16 05:50:52;
+  tstp 5 2016/12/16 05:50:52;
+  cltt 5 2016/12/16 05:34:52;
+  binding state free;
+  hardware ethernet 90:b6:86:07:92:ca;
+  uid "\001\220\266\206\007\222\312";
+}
+lease 192.168.11.156 {
+  starts 1 2016/12/19 10:45:06;
+  ends 1 2016/12/19 10:45:11;
+  tstp 1 2016/12/19 10:45:11;
+  cltt 1 2016/12/19 10:45:06;
+  binding state free;
+  hardware ethernet cc:fb:65:38:43:b2;
+  uid "\001\314\373e8C\262";
+}
+lease 192.168.11.203 {
+  starts 2 2017/01/17 12:22:39;
+  ends 2 2017/01/17 12:38:39;
+  tstp 2 2017/01/17 12:38:39;
+  cltt 2 2017/01/17 12:22:39;
+  binding state free;
+  hardware ethernet 78:4b:87:ac:94:c0;
+  uid "\001xK\207\254\224\300";
+}
+lease 192.168.11.142 {
+  starts 3 2017/01/18 07:00:30;
+  ends 3 2017/01/18 07:16:30;
+  tstp 3 2017/01/18 07:16:30;
+  cltt 3 2017/01/18 07:00:30;
+  binding state free;
+  hardware ethernet a0:e4:53:b2:bd:fc;
+}
+lease 192.168.11.140 {
+  starts 3 2017/01/18 15:02:59;
+  ends 3 2017/01/18 15:18:59;
+  tstp 3 2017/01/18 15:18:59;
+  cltt 3 2017/01/18 15:02:59;
+  binding state free;
+  hardware ethernet cc:af:78:6d:54:49;
+  uid "\001\314\257xmTI";
+}
+lease 192.168.11.189 {
+  starts 4 2017/01/19 09:14:33;
+  ends 4 2017/01/19 09:30:33;
+  tstp 4 2017/01/19 09:30:33;
+  cltt 4 2017/01/19 09:14:33;
+  binding state free;
+  hardware ethernet 78:4b:87:a7:79:ff;
+  uid "\001xK\207\247y\377";
+}
+lease 192.168.11.246 {
+  starts 4 2017/01/19 10:18:40;
+  ends 4 2017/01/19 10:34:40;
+  tstp 4 2017/01/19 10:34:40;
+  cltt 4 2017/01/19 10:18:40;
+  binding state free;
+  hardware ethernet 98:5f:d3:d1:33:5a;
+  uid "\001\230_\323\3213Z";
+}
+lease 192.168.11.164 {
+  starts 4 2017/01/19 10:21:26;
+  ends 4 2017/01/19 10:37:26;
+  tstp 4 2017/01/19 10:37:26;
+  cltt 4 2017/01/19 10:21:26;
+  binding state free;
+  hardware ethernet 78:4b:87:ad:67:99;
+  uid "\001xK\207\255g\231";
+}
+lease 192.168.11.144 {
+  starts 5 2017/01/20 00:20:22;
+  ends 5 2017/01/20 00:36:22;
+  tstp 5 2017/01/20 00:36:22;
+  cltt 5 2017/01/20 00:20:22;
+  binding state free;
+  hardware ethernet fc:db:b3:9a:97:2a;
+  uid "\001\374\333\263\232\227*";
+}
+lease 192.168.11.130 {
+  starts 6 2017/01/21 11:43:28;
+  ends 6 2017/01/21 11:59:28;
+  tstp 6 2017/01/21 11:59:28;
+  cltt 6 2017/01/21 11:43:28;
+  binding state free;
+  hardware ethernet b8:27:eb:44:85:f4;
+  uid "\001\270'\353D\205\364";
+}
+lease 192.168.11.184 {
+  starts 6 2017/01/21 13:38:49;
+  ends 6 2017/01/21 14:10:49;
+  tstp 6 2017/01/21 14:10:49;
+  cltt 6 2017/01/21 13:38:49;
+  binding state free;
+  hardware ethernet 4c:8d:79:ec:ec:e6;
+  uid "\001L\215y\354\354\346";
+}
+lease 192.168.11.152 {
+  starts 6 2017/01/21 14:19:04;
+  ends 6 2017/01/21 14:35:04;
+  tstp 6 2017/01/21 14:35:04;
+  cltt 6 2017/01/21 14:19:04;
+  binding state free;
+  hardware ethernet b8:27:eb:b1:48:dd;
+  uid "\001\270'\353\261H\335";
+}
+lease 192.168.11.225 {
+  starts 0 2017/01/22 05:29:15;
+  ends 0 2017/01/22 05:45:15;
+  tstp 0 2017/01/22 05:45:15;
+  cltt 0 2017/01/22 05:29:15;
+  binding state free;
+  hardware ethernet 1c:b7:2c:ea:a7:2f;
+  uid "\001\034\267,\352\247/";
+}
+lease 192.168.11.242 {
+  starts 0 2017/01/22 08:25:52;
+  ends 0 2017/01/22 08:41:52;
+  tstp 0 2017/01/22 08:41:52;
+  cltt 0 2017/01/22 08:25:52;
+  binding state free;
+  hardware ethernet b8:27:eb:8c:e3:07;
+  uid "\001\270'\353\214\343\007";
+}
+lease 192.168.11.217 {
+  starts 0 2017/01/22 14:34:30;
+  ends 0 2017/01/22 14:50:30;
+  tstp 0 2017/01/22 14:50:30;
+  cltt 0 2017/01/22 14:34:30;
+  binding state free;
+  hardware ethernet b8:bc:1b:aa:ca:62;
+}
+lease 192.168.11.157 {
+  starts 3 2017/01/25 06:31:24;
+  ends 3 2017/01/25 06:47:24;
+  tstp 3 2017/01/25 06:47:24;
+  cltt 3 2017/01/25 06:31:24;
+  binding state free;
+  hardware ethernet b8:27:eb:f9:17:aa;
+  uid "\001\270'\353\371\027\252";
+}
+lease 192.168.11.148 {
+  starts 5 2017/01/27 12:05:58;
+  ends 5 2017/01/27 12:21:58;
+  tstp 5 2017/01/27 12:21:58;
+  cltt 5 2017/01/27 12:05:58;
+  binding state free;
+  hardware ethernet 08:00:27:77:13:a2;
+}
+lease 192.168.11.146 {
+  starts 1 2017/01/30 06:54:17;
+  ends 1 2017/01/30 07:10:17;
+  tstp 1 2017/01/30 07:10:17;
+  cltt 1 2017/01/30 06:54:17;
+  binding state free;
+  hardware ethernet 0c:8b:fd:08:79:1a;
+  uid "\001\014\213\375\010y\032";
+}
+lease 192.168.11.212 {
+  starts 3 2017/02/01 11:57:02;
+  ends 3 2017/02/01 12:29:02;
+  tstp 3 2017/02/01 12:29:02;
+  cltt 3 2017/02/01 11:57:02;
+  binding state free;
+  hardware ethernet 2c:1f:23:54:5a:01;
+  uid "\001,\037#TZ\001";
+}
+lease 192.168.11.251 {
+  starts 0 2017/02/05 06:35:22;
+  ends 0 2017/02/05 07:07:22;
+  tstp 0 2017/02/05 07:07:22;
+  cltt 0 2017/02/05 06:35:22;
+  binding state free;
+  hardware ethernet 78:4f:43:4d:51:ac;
+  uid "\001xOCMQ\254";
+}
+lease 192.168.11.198 {
+  starts 0 2017/02/05 06:40:51;
+  ends 0 2017/02/05 07:12:51;
+  tstp 0 2017/02/05 07:12:51;
+  cltt 0 2017/02/05 06:40:51;
+  binding state free;
+  hardware ethernet 2c:f0:ee:6d:cd:cd;
+  uid "\001,\360\356m\315\315";
+}
+lease 192.168.11.169 {
+  starts 1 2017/02/06 13:11:55;
+  ends 1 2017/02/06 13:27:55;
+  tstp 1 2017/02/06 13:27:55;
+  cltt 1 2017/02/06 13:11:55;
+  binding state free;
+  hardware ethernet a0:d3:7a:76:69:e8;
+  uid "\001\240\323zvi\350";
+}
+lease 192.168.11.221 {
+  starts 3 2017/02/08 12:49:44;
+  ends 3 2017/02/08 13:05:44;
+  tstp 3 2017/02/08 13:05:44;
+  cltt 3 2017/02/08 12:49:44;
+  binding state free;
+  hardware ethernet f4:8e:38:db:8a:7f;
+}
+lease 192.168.11.166 {
+  starts 3 2017/02/08 13:10:47;
+  ends 3 2017/02/08 13:26:47;
+  tstp 3 2017/02/08 13:26:47;
+  cltt 3 2017/02/08 13:10:47;
+  binding state free;
+  hardware ethernet f4:8e:38:db:8a:7f;
+  uid "\001\364\2168\333\212\177";
+}
+lease 192.168.11.145 {
+  starts 4 2017/02/09 07:07:24;
+  ends 4 2017/02/09 07:09:24;
+  tstp 4 2017/02/09 07:09:24;
+  cltt 4 2017/02/09 07:07:24;
+  binding state free;
+  hardware ethernet 10:6f:3f:73:ae:ee;
+  uid "\001\020o?s\256\356";
+  client-hostname "AP106F3F73AEEE";
+}
+lease 192.168.11.151 {
+  starts 4 2017/02/09 06:58:25;
+  ends 4 2017/02/09 07:14:25;
+  tstp 4 2017/02/09 07:14:25;
+  cltt 4 2017/02/09 06:58:25;
+  binding state free;
+  hardware ethernet 4c:e6:76:c4:86:7c;
+}
+lease 192.168.11.205 {
+  starts 4 2017/02/09 12:05:46;
+  ends 4 2017/02/09 12:21:46;
+  tstp 4 2017/02/09 12:21:46;
+  cltt 4 2017/02/09 12:05:46;
+  binding state free;
+  hardware ethernet 00:1d:d9:38:4e:53;
+  uid "\001\000\035\3318NS";
+}
+lease 192.168.11.195 {
+  starts 5 2017/02/10 03:40:35;
+  ends 5 2017/02/10 03:56:35;
+  tstp 5 2017/02/10 03:56:35;
+  cltt 5 2017/02/10 03:40:35;
+  binding state free;
+  hardware ethernet e8:2a:ea:56:1e:95;
+  uid "\001\350*\352V\036\225";
+}
+lease 192.168.11.160 {
+  starts 5 2017/02/10 09:39:11;
+  ends 5 2017/02/10 09:41:11;
+  tstp 5 2017/02/10 09:41:11;
+  cltt 5 2017/02/10 09:39:11;
+  binding state free;
+  hardware ethernet 00:13:74:00:00:00;
+  uid "\000DELL4\000\0208\2006\261\300OSG2";
+}
+lease 192.168.11.224 {
+  starts 1 2017/02/13 07:59:24;
+  ends 1 2017/02/13 08:15:24;
+  tstp 1 2017/02/13 08:15:24;
+  cltt 1 2017/02/13 07:59:24;
+  binding state free;
+  hardware ethernet b8:27:eb:0f:b4:b6;
+  uid "\001\270'\353\017\264\266";
+}
+lease 192.168.11.227 {
+  starts 3 2017/02/15 07:57:19;
+  ends 3 2017/02/15 08:13:19;
+  tstp 3 2017/02/15 08:13:19;
+  cltt 3 2017/02/15 07:57:19;
+  binding state free;
+  hardware ethernet 40:40:a7:97:58:da;
+  uid "\001@@\247\227X\332";
+}
+lease 192.168.11.209 {
+  starts 4 2017/02/16 10:30:56;
+  ends 4 2017/02/16 10:32:56;
+  tstp 4 2017/02/16 10:32:56;
+  cltt 4 2017/02/16 10:30:56;
+  binding state free;
+  hardware ethernet 60:57:18:19:0f:37;
+  uid "\001`W\030\031\0177";
+  client-hostname "numaolab";
+}
+lease 192.168.11.138 {
+  starts 4 2017/02/16 11:09:59;
+  ends 4 2017/02/16 11:25:59;
+  tstp 4 2017/02/16 11:25:59;
+  cltt 4 2017/02/16 11:09:59;
+  binding state free;
+  hardware ethernet 00:24:6b:30:0e:b1;
+}
+lease 192.168.11.191 {
+  starts 5 2017/02/17 08:24:45;
+  ends 5 2017/02/17 08:40:45;
+  tstp 5 2017/02/17 08:40:45;
+  cltt 5 2017/02/17 08:24:45;
+  binding state free;
+  hardware ethernet 9c:5c:f9:34:e8:44;
+  uid "\001\234\\\3714\350D";
+}
+lease 192.168.11.202 {
+  starts 5 2017/02/17 09:26:57;
+  ends 5 2017/02/17 09:42:57;
+  tstp 5 2017/02/17 09:42:57;
+  cltt 5 2017/02/17 09:26:57;
+  binding state free;
+  hardware ethernet 88:1f:a1:00:43:74;
+  uid "\001\210\037\241\000Ct";
+}
+lease 192.168.11.220 {
+  starts 5 2017/02/17 09:21:11;
+  ends 5 2017/02/17 09:53:11;
+  tstp 5 2017/02/17 09:53:11;
+  cltt 5 2017/02/17 09:21:11;
+  binding state free;
+  hardware ethernet 48:3b:38:34:9b:17;
+  uid "\001H;84\233\027";
+}
+lease 192.168.11.136 {
+  starts 6 2017/02/18 12:37:33;
+  ends 6 2017/02/18 13:09:33;
+  tstp 6 2017/02/18 13:09:33;
+  cltt 6 2017/02/18 12:37:33;
+  binding state free;
+  hardware ethernet d8:1d:72:b2:82:8b;
+  uid "\001\330\035r\262\202\213";
+}
+lease 192.168.11.168 {
+  starts 1 2017/02/20 07:01:30;
+  ends 1 2017/02/20 07:33:30;
+  tstp 1 2017/02/20 07:33:30;
+  cltt 1 2017/02/20 07:01:30;
+  binding state free;
+  hardware ethernet f4:0f:24:3a:4b:36;
+  uid "\001\364\017$:K6";
+}
+lease 192.168.11.201 {
+  starts 1 2017/02/20 07:02:50;
+  ends 1 2017/02/20 07:34:50;
+  tstp 1 2017/02/20 07:34:50;
+  cltt 1 2017/02/20 07:02:50;
+  binding state free;
+  hardware ethernet 20:c9:d0:7a:10:4d;
+  uid "\001 \311\320z\020M";
+}
+lease 192.168.11.174 {
+  starts 1 2017/02/20 07:14:41;
+  ends 1 2017/02/20 07:46:41;
+  tstp 1 2017/02/20 07:46:41;
+  cltt 1 2017/02/20 07:14:41;
+  binding state free;
+  hardware ethernet 84:89:ad:ae:10:09;
+  uid "\001\204\211\255\256\020\011";
+}
+lease 192.168.11.181 {
+  starts 1 2017/02/20 08:38:40;
+  ends 1 2017/02/20 08:54:40;
+  tstp 1 2017/02/20 08:54:40;
+  cltt 1 2017/02/20 08:38:40;
+  binding state free;
+  hardware ethernet 78:4b:87:de:55:e8;
+  uid "\001xK\207\336U\350";
+}
+lease 192.168.11.155 {
+  starts 1 2017/02/20 09:37:03;
+  ends 1 2017/02/20 09:53:03;
+  tstp 1 2017/02/20 09:53:03;
+  cltt 1 2017/02/20 09:37:03;
+  binding state free;
+  hardware ethernet ac:9e:17:84:61:7c;
+  uid "\001\254\236\027\204a|";
+}
+lease 192.168.11.141 {
+  starts 2 2017/02/21 08:02:34;
+  ends 2 2017/02/21 08:18:34;
+  tstp 2 2017/02/21 08:18:34;
+  cltt 2 2017/02/21 08:02:34;
+  binding state free;
+  hardware ethernet 70:71:bc:08:c5:b8;
+  uid "\001pq\274\010\305\270";
+}
+lease 192.168.11.128 {
+  starts 2 2017/02/21 09:37:04;
+  ends 2 2017/02/21 10:09:04;
+  tstp 2 2017/02/21 10:09:04;
+  cltt 2 2017/02/21 09:37:04;
+  binding state free;
+  hardware ethernet f4:0f:24:3a:15:7b;
+  uid "\001\364\017$:\025{";
+}
+lease 192.168.11.234 {
+  starts 3 2017/02/22 08:30:46;
+  ends 3 2017/02/22 08:46:46;
+  tstp 3 2017/02/22 08:46:46;
+  cltt 3 2017/02/22 08:30:46;
+  binding state free;
+  hardware ethernet cc:e1:d5:4c:e3:6c;
+  uid "\001\314\341\325L\343l";
+}
+lease 192.168.11.208 {
+  starts 3 2017/02/22 08:38:23;
+  ends 3 2017/02/22 09:10:23;
+  tstp 3 2017/02/22 09:10:23;
+  cltt 3 2017/02/22 08:38:23;
+  binding state free;
+  hardware ethernet 80:e6:50:0a:0f:e8;
+  uid "\001\200\346P\012\017\350";
+}
+lease 192.168.11.192 {
+  starts 3 2017/02/22 14:34:37;
+  ends 3 2017/02/22 14:50:37;
+  tstp 3 2017/02/22 14:50:37;
+  cltt 3 2017/02/22 14:34:37;
+  binding state free;
+  hardware ethernet c8:ff:28:ab:aa:90;
+  uid "\001\310\377(\253\252\220";
+}
+lease 192.168.11.172 {
+  starts 3 2017/02/22 14:21:05;
+  ends 3 2017/02/22 14:53:05;
+  tstp 3 2017/02/22 14:53:05;
+  cltt 3 2017/02/22 14:21:05;
+  binding state free;
+  hardware ethernet 48:74:6e:1f:51:84;
+  uid "\001Htn\037Q\204";
+}
+lease 192.168.11.173 {
+  starts 3 2017/02/22 14:22:08;
+  ends 3 2017/02/22 14:54:08;
+  tstp 3 2017/02/22 14:54:08;
+  cltt 3 2017/02/22 14:22:08;
+  binding state free;
+  hardware ethernet 3c:15:c2:d4:a0:e8;
+  uid "\001<\025\302\324\240\350";
+}
+lease 192.168.11.190 {
+  starts 3 2017/02/22 14:35:59;
+  ends 3 2017/02/22 15:07:59;
+  tstp 3 2017/02/22 15:07:59;
+  cltt 3 2017/02/22 14:35:59;
+  binding state free;
+  hardware ethernet 28:ed:6a:6c:73:a8;
+  uid "\001(\355jls\250";
+}
+lease 192.168.11.237 {
+  starts 4 2017/02/23 02:59:59;
+  ends 4 2017/02/23 03:15:59;
+  tstp 4 2017/02/23 03:15:59;
+  cltt 4 2017/02/23 02:59:59;
+  binding state free;
+  hardware ethernet c8:60:00:27:65:99;
+  uid "\001\310`\000'e\231";
+}
+lease 192.168.11.135 {
+  starts 6 2017/02/25 09:45:15;
+  ends 6 2017/02/25 10:01:15;
+  tstp 6 2017/02/25 10:01:15;
+  cltt 6 2017/02/25 09:45:15;
+  binding state free;
+  hardware ethernet 74:c2:46:84:34:c3;
+  uid "\001t\302F\2044\303";
+}
+lease 192.168.11.143 {
+  starts 0 2017/02/26 10:08:32;
+  ends 0 2017/02/26 10:40:32;
+  tstp 0 2017/02/26 10:40:32;
+  cltt 0 2017/02/26 10:08:32;
+  binding state free;
+  hardware ethernet a4:f1:e8:47:77:54;
+  uid "\001\244\361\350GwT";
+}
+lease 192.168.11.240 {
+  starts 1 2017/02/27 09:35:16;
+  ends 1 2017/02/27 10:07:16;
+  tstp 1 2017/02/27 10:07:16;
+  cltt 1 2017/02/27 09:35:16;
+  binding state free;
+  hardware ethernet 6c:19:c0:89:12:bc;
+  uid "\001l\031\300\211\022\274";
+}
+lease 192.168.11.229 {
+  starts 4 2017/03/02 08:20:04;
+  ends 4 2017/03/02 08:36:04;
+  tstp 4 2017/03/02 08:36:04;
+  cltt 4 2017/03/02 08:20:04;
+  binding state free;
+  hardware ethernet 08:6d:41:d8:b0:be;
+  uid "\001\010mA\330\260\276";
+}
+lease 192.168.11.228 {
+  starts 4 2017/03/02 12:59:50;
+  ends 4 2017/03/02 13:31:50;
+  tstp 4 2017/03/02 13:31:50;
+  cltt 4 2017/03/02 12:59:50;
+  binding state free;
+  hardware ethernet f4:5c:89:b8:60:3b;
+  uid "\001\364\\\211\270`;";
+}
+lease 192.168.11.232 {
+  starts 5 2017/03/03 09:22:31;
+  ends 5 2017/03/03 09:38:31;
+  tstp 5 2017/03/03 09:38:31;
+  cltt 5 2017/03/03 09:22:31;
+  binding state free;
+  hardware ethernet f8:bc:12:a0:9c:d6;
+  uid "\001\370\274\022\240\234\326";
+}
+lease 192.168.11.171 {
+  starts 5 2017/03/03 09:18:15;
+  ends 5 2017/03/03 09:50:15;
+  tstp 5 2017/03/03 09:50:15;
+  cltt 5 2017/03/03 09:18:15;
+  binding state free;
+  hardware ethernet f4:5c:89:bc:87:f1;
+  uid "\001\364\\\211\274\207\361";
+}
+lease 192.168.11.253 {
+  starts 5 2017/03/03 09:26:45;
+  ends 5 2017/03/03 09:58:45;
+  tstp 5 2017/03/03 09:58:45;
+  cltt 5 2017/03/03 09:26:45;
+  binding state free;
+  hardware ethernet f0:99:bf:40:b3:5b;
+  uid "\001\360\231\277@\263[";
+}
+lease 192.168.11.154 {
+  starts 0 2017/03/05 03:53:27;
+  ends 0 2017/03/05 04:09:27;
+  tstp 0 2017/03/05 04:09:27;
+  cltt 0 2017/03/05 03:53:27;
+  binding state free;
+  hardware ethernet f8:bc:12:a0:9d:0a;
+  uid "\001\370\274\022\240\235\012";
+}
+lease 192.168.11.162 {
+  starts 0 2017/03/05 03:57:40;
+  ends 0 2017/03/05 04:13:40;
+  tstp 0 2017/03/05 04:13:40;
+  cltt 0 2017/03/05 03:57:40;
+  binding state free;
+  hardware ethernet 00:23:54:7c:1f:a4;
+  uid "\001\000#T|\037\244";
+}
+lease 192.168.11.233 {
+  starts 0 2017/03/05 04:00:18;
+  ends 0 2017/03/05 04:16:18;
+  tstp 0 2017/03/05 04:16:18;
+  cltt 0 2017/03/05 04:00:18;
+  binding state free;
+  hardware ethernet f4:8e:38:db:8a:7f;
+}
+lease 192.168.11.132 {
+  starts 0 2017/03/05 03:53:04;
+  ends 0 2017/03/05 04:25:04;
+  tstp 0 2017/03/05 04:25:04;
+  cltt 0 2017/03/05 03:53:04;
+  binding state free;
+  hardware ethernet 00:1b:8b:f5:65:18;
+}
+lease 192.168.11.149 {
+  starts 0 2017/03/05 11:03:49;
+  ends 0 2017/03/05 11:19:49;
+  tstp 0 2017/03/05 11:19:49;
+  cltt 0 2017/03/05 11:03:49;
+  binding state free;
+  hardware ethernet 6c:40:08:15:41:c7;
+  uid "\001l@\010\025A\307";
+}
+lease 192.168.11.139 {
+  starts 0 2017/03/05 15:41:33;
+  ends 0 2017/03/05 16:13:33;
+  tstp 0 2017/03/05 16:13:33;
+  cltt 0 2017/03/05 15:41:33;
+  binding state free;
+  hardware ethernet a4:5e:60:e3:b9:cb;
+  uid "\001\244^`\343\271\313";
+}
+lease 192.168.11.223 {
+  starts 1 2017/03/06 03:06:27;
+  ends 1 2017/03/06 03:22:27;
+  tstp 1 2017/03/06 03:22:27;
+  cltt 1 2017/03/06 03:06:27;
+  binding state free;
+  hardware ethernet b8:27:eb:e6:c7:c8;
+  uid "\001\270'\353\346\307\310";
+}
+lease 192.168.11.241 {
+  starts 1 2017/03/06 07:54:31;
+  ends 1 2017/03/06 08:26:31;
+  tstp 1 2017/03/06 08:26:31;
+  cltt 1 2017/03/06 07:54:31;
+  binding state free;
+  hardware ethernet a0:d7:95:18:5f:b2;
+  uid "\001\240\327\225\030_\262";
+}
+lease 192.168.11.219 {
+  starts 1 2017/03/06 14:16:12;
+  ends 1 2017/03/06 14:32:12;
+  tstp 1 2017/03/06 14:32:12;
+  cltt 1 2017/03/06 14:16:12;
+  binding state free;
+  hardware ethernet 98:01:a7:b3:bc:35;
+  uid "\001\230\001\247\263\2745";
+}
+lease 192.168.11.185 {
+  starts 2 2017/03/07 07:10:51;
+  ends 2 2017/03/07 07:42:51;
+  tstp 2 2017/03/07 07:42:51;
+  cltt 2 2017/03/07 07:10:51;
+  binding state free;
+  hardware ethernet a0:3b:e3:9d:74:61;
+  uid "\001\240;\343\235ta";
+}
+lease 192.168.11.147 {
+  starts 3 2017/03/08 07:20:35;
+  ends 3 2017/03/08 07:36:35;
+  tstp 3 2017/03/08 07:36:35;
+  cltt 3 2017/03/08 07:20:35;
+  binding state free;
+  hardware ethernet c8:60:00:27:65:99;
+}
+lease 192.168.11.235 {
+  starts 3 2017/03/08 09:44:44;
+  ends 3 2017/03/08 10:16:44;
+  tstp 3 2017/03/08 10:16:44;
+  cltt 3 2017/03/08 09:44:44;
+  binding state free;
+  hardware ethernet a4:5e:60:ba:a1:eb;
+  uid "\001\244^`\272\241\353";
+}
+lease 192.168.11.218 {
+  starts 3 2017/03/08 10:05:00;
+  ends 3 2017/03/08 10:21:00;
+  tstp 3 2017/03/08 10:21:00;
+  cltt 3 2017/03/08 10:05:00;
+  binding state free;
+  hardware ethernet 18:d2:76:48:81:e8;
+  uid "\001\030\322vH\201\350";
+}
+lease 192.168.11.222 {
+  starts 4 2017/03/09 02:56:38;
+  ends 4 2017/03/09 03:12:38;
+  tstp 4 2017/03/09 03:12:38;
+  cltt 4 2017/03/09 02:56:38;
+  binding state free;
+  hardware ethernet b8:27:eb:6e:5b:ed;
+  uid "\001\270'\353n[\355";
+}
+lease 192.168.11.182 {
+  starts 4 2017/03/09 10:01:21;
+  ends 4 2017/03/09 10:17:21;
+  tstp 4 2017/03/09 10:17:21;
+  cltt 4 2017/03/09 10:01:21;
+  binding state free;
+  hardware ethernet 52:54:00:52:21:50;
+}
+lease 192.168.11.231 {
+  starts 4 2017/03/09 10:41:11;
+  ends 4 2017/03/09 10:57:11;
+  tstp 4 2017/03/09 10:57:11;
+  cltt 4 2017/03/09 10:41:11;
+  binding state free;
+  hardware ethernet 52:54:00:69:7b:c1;
+}
+lease 192.168.11.248 {
+  starts 5 2017/03/10 05:25:26;
+  ends 5 2017/03/10 05:41:26;
+  tstp 5 2017/03/10 05:41:26;
+  cltt 5 2017/03/10 05:25:26;
+  binding state free;
+  hardware ethernet ac:9e:17:84:62:7c;
+  uid "\001\254\236\027\204b|";
+}
+lease 192.168.11.250 {
+  starts 5 2017/03/10 06:05:57;
+  ends 5 2017/03/10 06:21:57;
+  tstp 5 2017/03/10 06:21:57;
+  cltt 5 2017/03/10 06:05:57;
+  binding state free;
+  hardware ethernet e0:3f:49:15:3b:0c;
+  uid "\001\340?I\025;\014";
+}
+lease 192.168.11.210 {
+  starts 6 2017/03/11 06:02:10;
+  ends 6 2017/03/11 06:18:10;
+  tstp 6 2017/03/11 06:18:10;
+  cltt 6 2017/03/11 06:02:10;
+  binding state free;
+  hardware ethernet 52:54:00:f5:ca:b6;
+}
+lease 192.168.11.200 {
+  starts 6 2017/03/11 06:15:13;
+  ends 6 2017/03/11 06:31:13;
+  tstp 6 2017/03/11 06:31:13;
+  cltt 6 2017/03/11 06:15:13;
+  binding state free;
+  hardware ethernet 52:54:00:e7:97:6a;
+}
+lease 192.168.11.197 {
+  starts 6 2017/03/11 06:43:57;
+  ends 6 2017/03/11 06:59:57;
+  tstp 6 2017/03/11 06:59:57;
+  cltt 6 2017/03/11 06:43:57;
+  binding state free;
+  hardware ethernet 52:54:00:5f:dd:77;
+}
+lease 192.168.11.245 {
+  starts 1 2017/03/13 08:56:06;
+  ends 1 2017/03/13 09:12:06;
+  tstp 1 2017/03/13 09:12:06;
+  cltt 1 2017/03/13 08:56:06;
+  binding state free;
+  hardware ethernet e0:5f:45:49:93:29;
+  uid "\001\340_EI\223)";
+}
+lease 192.168.11.133 {
+  starts 1 2017/03/13 09:58:52;
+  ends 1 2017/03/13 10:30:52;
+  tstp 1 2017/03/13 10:30:52;
+  cltt 1 2017/03/13 09:58:52;
+  binding state free;
+  hardware ethernet 64:76:ba:b4:ca:ca;
+  uid "\001dv\272\264\312\312";
+}
+lease 192.168.11.230 {
+  starts 1 2017/03/13 16:01:36;
+  ends 1 2017/03/13 16:03:36;
+  cltt 1 2017/03/13 16:01:36;
+  binding state free;
+  hardware ethernet 1c:b7:2c:5d:c1:a6;
+  uid "\001\034\267,]\301\246";
+  client-hostname "DESKTOP-U7FGBHB";
+}
+lease 192.168.11.167 {
+  starts 2 2017/03/14 08:28:49;
+  ends 2 2017/03/14 08:44:49;
+  tstp 2 2017/03/14 08:44:49;
+  cltt 2 2017/03/14 08:28:49;
+  binding state free;
+  hardware ethernet 44:85:00:6d:33:91;
+  uid "\001D\205\000m3\221";
+}
+lease 192.168.11.252 {
+  starts 3 2017/03/15 07:51:07;
+  ends 3 2017/03/15 08:07:07;
+  tstp 3 2017/03/15 08:07:07;
+  cltt 3 2017/03/15 07:51:07;
+  binding state free;
+  hardware ethernet 30:52:cb:c6:c8:05;
+  uid "\0010R\313\306\310\005";
+}
+lease 192.168.11.183 {
+  starts 3 2017/03/15 09:52:17;
+  ends 3 2017/03/15 10:08:17;
+  tstp 3 2017/03/15 10:08:17;
+  cltt 3 2017/03/15 09:52:17;
+  binding state free;
+  hardware ethernet 0c:8b:fd:08:49:2c;
+  uid "\001\014\213\375\010I,";
+}
+lease 192.168.11.216 {
+  starts 3 2017/03/15 13:21:14;
+  ends 3 2017/03/15 13:37:14;
+  tstp 3 2017/03/15 13:37:14;
+  cltt 3 2017/03/15 13:21:14;
+  binding state free;
+  hardware ethernet 60:e3:27:17:57:95;
+  uid "\001`\343'\027W\225";
+}
+lease 192.168.11.193 {
+  starts 3 2017/03/15 13:19:08;
+  ends 3 2017/03/15 13:51:08;
+  tstp 3 2017/03/15 13:51:08;
+  cltt 3 2017/03/15 13:19:08;
+  binding state free;
+  hardware ethernet 60:f8:1d:ad:fe:3a;
+  uid "\001`\370\035\255\376:";
+}
+lease 192.168.11.196 {
+  starts 3 2017/03/15 18:13:11;
+  ends 3 2017/03/15 18:45:11;
+  tstp 3 2017/03/15 18:45:11;
+  cltt 3 2017/03/15 18:13:11;
+  binding state free;
+  hardware ethernet f4:0f:24:3a:26:a0;
+  uid "\001\364\017$:&\240";
+}
+lease 192.168.11.211 {
+  starts 5 2017/03/17 07:26:58;
+  ends 5 2017/03/17 07:42:58;
+  tstp 5 2017/03/17 07:42:58;
+  cltt 5 2017/03/17 07:26:58;
+  binding state free;
+  hardware ethernet 08:ed:b9:c7:28:ad;
+  uid "\001\010\355\271\307(\255";
+}
+lease 192.168.11.206 {
+  starts 5 2017/03/17 07:15:53;
+  ends 5 2017/03/17 07:47:53;
+  tstp 5 2017/03/17 07:47:53;
+  cltt 5 2017/03/17 07:15:53;
+  binding state free;
+  hardware ethernet 28:cf:da:ef:53:08;
+  uid "\001(\317\332\357S\010";
+}
+lease 192.168.11.226 {
+  starts 5 2017/03/17 07:24:43;
+  ends 5 2017/03/17 07:56:43;
+  tstp 5 2017/03/17 07:56:43;
+  cltt 5 2017/03/17 07:24:43;
+  binding state free;
+  hardware ethernet 8c:29:37:26:57:69;
+  uid "\001\214)7&Wi";
+}
+lease 192.168.11.170 {
+  starts 5 2017/03/17 08:38:49;
+  ends 5 2017/03/17 08:54:49;
+  tstp 5 2017/03/17 08:54:49;
+  cltt 5 2017/03/17 08:38:49;
+  binding state free;
+  hardware ethernet f8:bc:12:9c:dd:80;
+  uid "\001\370\274\022\234\335\200";
+}
+lease 192.168.11.238 {
+  starts 6 2017/03/18 06:34:48;
+  ends 6 2017/03/18 07:06:48;
+  tstp 6 2017/03/18 07:06:48;
+  cltt 6 2017/03/18 06:34:48;
+  binding state free;
+  hardware ethernet 74:8d:08:31:50:df;
+  uid "\001t\215\0101P\337";
+}
+lease 192.168.11.244 {
+  starts 6 2017/03/18 07:37:57;
+  ends 6 2017/03/18 07:53:57;
+  tstp 6 2017/03/18 07:53:57;
+  cltt 6 2017/03/18 07:37:57;
+  binding state free;
+  hardware ethernet 84:2b:2b:8a:63:bd;
+  uid "\001\204++\212c\275";
+}
+lease 192.168.11.243 {
+  starts 6 2017/03/18 08:58:24;
+  ends 6 2017/03/18 09:14:24;
+  tstp 6 2017/03/18 09:14:24;
+  cltt 6 2017/03/18 08:58:24;
+  binding state free;
+  hardware ethernet 74:d4:35:5d:4c:0c;
+  uid "\001t\3245]L\014";
+}
+lease 192.168.11.194 {
+  starts 0 2017/03/19 07:25:59;
+  ends 0 2017/03/19 07:57:59;
+  tstp 0 2017/03/19 07:57:59;
+  cltt 0 2017/03/19 07:25:59;
+  binding state free;
+  hardware ethernet 28:f0:76:0c:80:26;
+  uid "\001(\360v\014\200&";
+}
+lease 192.168.11.131 {
+  starts 0 2017/03/19 07:25:59;
+  ends 0 2017/03/19 07:57:59;
+  tstp 0 2017/03/19 07:57:59;
+  cltt 0 2017/03/19 07:25:59;
+  binding state free;
+  hardware ethernet 38:c9:86:15:83:28;
+  uid "\0018\311\206\025\203(";
+}
+lease 192.168.11.249 {
+  starts 0 2017/03/19 07:30:28;
+  ends 0 2017/03/19 08:02:28;
+  tstp 0 2017/03/19 08:02:28;
+  cltt 0 2017/03/19 07:30:28;
+  binding state free;
+  hardware ethernet 4c:57:ca:cf:3d:37;
+  uid "\001LW\312\317=7";
+}
+lease 192.168.11.158 {
+  starts 0 2017/03/19 10:37:06;
+  ends 0 2017/03/19 10:53:06;
+  cltt 0 2017/03/19 10:37:06;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:9f:b5:9f:98:7f;
+  client-hostname "HUAWEI_P9_lite";
+}
+lease 192.168.11.150 {
+  starts 0 2017/03/19 10:38:13;
+  ends 0 2017/03/19 10:54:13;
+  cltt 0 2017/03/19 10:38:13;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 4c:e6:76:f9:85:f6;
+}
+lease 192.168.11.165 {
+  starts 0 2017/03/19 10:38:13;
+  ends 0 2017/03/19 10:54:13;
+  cltt 0 2017/03/19 10:38:13;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:27:95:5c;
+}
+lease 192.168.11.163 {
+  starts 0 2017/03/19 10:38:13;
+  ends 0 2017/03/19 10:54:13;
+  cltt 0 2017/03/19 10:38:13;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:e1:98;
+}
+lease 192.168.11.159 {
+  starts 0 2017/03/19 10:38:16;
+  ends 0 2017/03/19 10:54:16;
+  cltt 0 2017/03/19 10:38:16;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:d9:64;
+}
+lease 192.168.11.177 {
+  starts 0 2017/03/19 10:42:08;
+  ends 0 2017/03/19 10:58:08;
+  cltt 0 2017/03/19 10:42:08;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 34:97:f6:cd:04:fc;
+  uid "\0014\227\366\315\004\374";
+  client-hostname "android-2ac806967effd44f";
+}
+lease 192.168.11.207 {
+  starts 0 2017/03/19 10:28:36;
+  ends 0 2017/03/19 11:00:36;
+  cltt 0 2017/03/19 10:28:36;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 04:52:f3:93:8d:be;
+  uid "\001\004R\363\223\215\276";
+  client-hostname "NumaLabPadmini4";
+}
+lease 192.168.11.134 {
+  starts 0 2017/03/19 10:30:26;
+  ends 0 2017/03/19 11:02:26;
+  cltt 0 2017/03/19 10:30:26;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 78:31:c1:cf:d9:0c;
+  uid "\001x1\301\317\331\014";
+  client-hostname "kokaMBP";
+}
+lease 192.168.11.129 {
+  starts 0 2017/03/19 10:31:54;
+  ends 0 2017/03/19 11:03:54;
+  cltt 0 2017/03/19 10:31:54;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet cc:20:e8:7c:dc:e8;
+  uid "\001\314 \350|\334\350";
+  client-hostname "kokaiPhone";
+}
+lease 192.168.11.204 {
+  starts 0 2017/03/19 10:35:58;
+  ends 0 2017/03/19 11:07:58;
+  cltt 0 2017/03/19 10:35:58;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet a4:12:42:7d:3e:15;
+}
+lease 192.168.11.247 {
+  starts 0 2017/03/19 10:41:27;
+  ends 0 2017/03/19 11:13:27;
+  cltt 0 2017/03/19 10:41:27;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 0c:51:01:c8:db:c3;
+  uid "\001\014Q\001\310\333\303";
+  client-hostname "iPadAir2TLM050";
+}
+lease 192.168.11.214 {
+  starts 0 2017/03/19 10:41:35;
+  ends 0 2017/03/19 11:13:35;
+  cltt 0 2017/03/19 10:41:35;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 64:20:0c:87:03:a8;
+  uid "\001d \014\207\003\250";
+  client-hostname "iPad";
+}
+lease 192.168.11.153 {
+  starts 0 2017/03/19 10:43:03;
+  ends 0 2017/03/19 11:15:03;
+  cltt 0 2017/03/19 10:43:03;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:09:b4:39;
+  uid "\001\020o?\011\2649";
+  client-hostname "AP106F3F09B439";
+}
+server-duid "\000\001\000\001\036C\012Ux+\313\250\025\024";
+
+lease 192.168.11.158 {
+  starts 0 2017/03/19 10:44:47;
+  ends 0 2017/03/19 11:00:47;
+  cltt 0 2017/03/19 10:44:47;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:9f:b5:9f:98:7f;
+  client-hostname "HUAWEI_P9_lite";
+}
+lease 192.168.11.163 {
+  starts 0 2017/03/19 10:46:14;
+  ends 0 2017/03/19 11:02:14;
+  cltt 0 2017/03/19 10:46:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:e1:98;
+}
+lease 192.168.11.165 {
+  starts 0 2017/03/19 10:46:14;
+  ends 0 2017/03/19 11:02:14;
+  cltt 0 2017/03/19 10:46:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:27:95:5c;
+}
+lease 192.168.11.150 {
+  starts 0 2017/03/19 10:46:14;
+  ends 0 2017/03/19 11:02:14;
+  cltt 0 2017/03/19 10:46:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 4c:e6:76:f9:85:f6;
+}
+lease 192.168.11.159 {
+  starts 0 2017/03/19 10:46:16;
+  ends 0 2017/03/19 11:02:16;
+  cltt 0 2017/03/19 10:46:16;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:d9:64;
+}
+lease 192.168.11.134 {
+  starts 0 2017/03/19 10:46:26;
+  ends 0 2017/03/19 11:18:26;
+  cltt 0 2017/03/19 10:46:26;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 78:31:c1:cf:d9:0c;
+  uid "\001x1\301\317\331\014";
+  client-hostname "kokaMBP";
+}
+lease 192.168.11.129 {
+  starts 0 2017/03/19 10:47:54;
+  ends 0 2017/03/19 11:19:54;
+  cltt 0 2017/03/19 10:47:54;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet cc:20:e8:7c:dc:e8;
+  uid "\001\314 \350|\334\350";
+  client-hostname "kokaiPhone";
+}
+lease 192.168.11.177 {
+  starts 0 2017/03/19 10:50:14;
+  ends 0 2017/03/19 11:06:14;
+  cltt 0 2017/03/19 10:50:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 34:97:f6:cd:04:fc;
+  uid "\0014\227\366\315\004\374";
+  client-hostname "android-2ac806967effd44f";
+}
+lease 192.168.11.207 {
+  starts 0 2017/03/19 10:50:37;
+  ends 0 2017/03/19 11:22:37;
+  cltt 0 2017/03/19 10:50:37;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 04:52:f3:93:8d:be;
+  uid "\001\004R\363\223\215\276";
+  client-hostname "NumaLabPadmini4";
+}
+lease 192.168.11.204 {
+  starts 0 2017/03/19 10:51:59;
+  ends 0 2017/03/19 11:23:59;
+  cltt 0 2017/03/19 10:51:59;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet a4:12:42:7d:3e:15;
+}
+lease 192.168.11.158 {
+  starts 0 2017/03/19 10:52:28;
+  ends 0 2017/03/19 11:08:28;
+  cltt 0 2017/03/19 10:52:28;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:9f:b5:9f:98:7f;
+  client-hostname "HUAWEI_P9_lite";
+}
+lease 192.168.11.163 {
+  starts 0 2017/03/19 10:54:14;
+  ends 0 2017/03/19 11:10:14;
+  cltt 0 2017/03/19 10:54:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:e1:98;
+}
+lease 192.168.11.165 {
+  starts 0 2017/03/19 10:54:14;
+  ends 0 2017/03/19 11:10:14;
+  cltt 0 2017/03/19 10:54:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:27:95:5c;
+}
+lease 192.168.11.150 {
+  starts 0 2017/03/19 10:54:14;
+  ends 0 2017/03/19 11:10:14;
+  cltt 0 2017/03/19 10:54:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 4c:e6:76:f9:85:f6;
+}
+lease 192.168.11.159 {
+  starts 0 2017/03/19 10:54:16;
+  ends 0 2017/03/19 11:10:16;
+  cltt 0 2017/03/19 10:54:16;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:d9:64;
+}
+lease 192.168.11.214 {
+  starts 0 2017/03/19 10:56:28;
+  ends 0 2017/03/19 11:28:28;
+  cltt 0 2017/03/19 10:56:28;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 64:20:0c:87:03:a8;
+  uid "\001d \014\207\003\250";
+  client-hostname "iPad";
+}
+lease 192.168.11.177 {
+  starts 0 2017/03/19 10:58:20;
+  ends 0 2017/03/19 11:14:20;
+  cltt 0 2017/03/19 10:58:20;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 34:97:f6:cd:04:fc;
+  uid "\0014\227\366\315\004\374";
+  client-hostname "android-2ac806967effd44f";
+}
+lease 192.168.11.153 {
+  starts 0 2017/03/19 10:59:03;
+  ends 0 2017/03/19 11:31:03;
+  cltt 0 2017/03/19 10:59:03;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:09:b4:39;
+  uid "\001\020o?\011\2649";
+  client-hostname "AP106F3F09B439";
+}
+lease 192.168.11.158 {
+  starts 0 2017/03/19 11:00:10;
+  ends 0 2017/03/19 11:16:10;
+  cltt 0 2017/03/19 11:00:10;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:9f:b5:9f:98:7f;
+  client-hostname "HUAWEI_P9_lite";
+}
+lease 192.168.11.163 {
+  starts 0 2017/03/19 11:02:14;
+  ends 0 2017/03/19 11:18:14;
+  cltt 0 2017/03/19 11:02:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:e1:98;
+}
+lease 192.168.11.165 {
+  starts 0 2017/03/19 11:02:14;
+  ends 0 2017/03/19 11:18:14;
+  cltt 0 2017/03/19 11:02:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:27:95:5c;
+}
+lease 192.168.11.150 {
+  starts 0 2017/03/19 11:02:14;
+  ends 0 2017/03/19 11:18:14;
+  cltt 0 2017/03/19 11:02:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 4c:e6:76:f9:85:f6;
+}
+lease 192.168.11.159 {
+  starts 0 2017/03/19 11:02:17;
+  ends 0 2017/03/19 11:18:17;
+  cltt 0 2017/03/19 11:02:17;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:d9:64;
+}
+lease 192.168.11.177 {
+  starts 0 2017/03/19 11:06:27;
+  ends 0 2017/03/19 11:22:27;
+  cltt 0 2017/03/19 11:06:27;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 34:97:f6:cd:04:fc;
+  uid "\0014\227\366\315\004\374";
+  client-hostname "android-2ac806967effd44f";
+}
+lease 192.168.11.207 {
+  starts 0 2017/03/19 11:07:46;
+  ends 0 2017/03/19 11:39:46;
+  cltt 0 2017/03/19 11:07:46;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 04:52:f3:93:8d:be;
+  uid "\001\004R\363\223\215\276";
+  client-hostname "NumaLabPadmini4";
+}
+lease 192.168.11.158 {
+  starts 0 2017/03/19 11:07:51;
+  ends 0 2017/03/19 11:23:51;
+  cltt 0 2017/03/19 11:07:51;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:9f:b5:9f:98:7f;
+  client-hostname "HUAWEI_P9_lite";
+}
+lease 192.168.11.204 {
+  starts 0 2017/03/19 11:07:59;
+  ends 0 2017/03/19 11:39:59;
+  cltt 0 2017/03/19 11:07:59;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet a4:12:42:7d:3e:15;
+}
+lease 192.168.11.163 {
+  starts 0 2017/03/19 11:10:14;
+  ends 0 2017/03/19 11:26:14;
+  cltt 0 2017/03/19 11:10:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:e1:98;
+}
+lease 192.168.11.165 {
+  starts 0 2017/03/19 11:10:14;
+  ends 0 2017/03/19 11:26:14;
+  cltt 0 2017/03/19 11:10:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:27:95:5c;
+}
+lease 192.168.11.150 {
+  starts 0 2017/03/19 11:10:14;
+  ends 0 2017/03/19 11:26:14;
+  cltt 0 2017/03/19 11:10:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 4c:e6:76:f9:85:f6;
+}
+lease 192.168.11.159 {
+  starts 0 2017/03/19 11:10:17;
+  ends 0 2017/03/19 11:26:17;
+  cltt 0 2017/03/19 11:10:17;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:d9:64;
+}
+lease 192.168.11.214 {
+  starts 0 2017/03/19 11:11:23;
+  ends 0 2017/03/19 11:43:23;
+  cltt 0 2017/03/19 11:11:23;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 64:20:0c:87:03:a8;
+  uid "\001d \014\207\003\250";
+  client-hostname "iPad";
+}
+lease 192.168.11.247 {
+  starts 0 2017/03/19 10:41:27;
+  ends 0 2017/03/19 11:13:27;
+  tstp 0 2017/03/19 11:13:27;
+  cltt 0 2017/03/19 10:41:27;
+  binding state free;
+  hardware ethernet 0c:51:01:c8:db:c3;
+  uid "\001\014Q\001\310\333\303";
+}
+lease 192.168.11.177 {
+  starts 0 2017/03/19 11:14:33;
+  ends 0 2017/03/19 11:30:33;
+  cltt 0 2017/03/19 11:14:33;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 34:97:f6:cd:04:fc;
+  uid "\0014\227\366\315\004\374";
+  client-hostname "android-2ac806967effd44f";
+}
+lease 192.168.11.153 {
+  starts 0 2017/03/19 11:15:03;
+  ends 0 2017/03/19 11:47:03;
+  cltt 0 2017/03/19 11:15:03;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:09:b4:39;
+  uid "\001\020o?\011\2649";
+  client-hostname "AP106F3F09B439";
+}
+lease 192.168.11.158 {
+  starts 0 2017/03/19 11:15:33;
+  ends 0 2017/03/19 11:31:33;
+  cltt 0 2017/03/19 11:15:33;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:9f:b5:9f:98:7f;
+  client-hostname "HUAWEI_P9_lite";
+}
+lease 192.168.11.163 {
+  starts 0 2017/03/19 11:18:14;
+  ends 0 2017/03/19 11:34:14;
+  cltt 0 2017/03/19 11:18:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:e1:98;
+}
+lease 192.168.11.165 {
+  starts 0 2017/03/19 11:18:14;
+  ends 0 2017/03/19 11:34:14;
+  cltt 0 2017/03/19 11:18:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:27:95:5c;
+}
+lease 192.168.11.150 {
+  starts 0 2017/03/19 11:18:14;
+  ends 0 2017/03/19 11:34:14;
+  cltt 0 2017/03/19 11:18:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 4c:e6:76:f9:85:f6;
+}
+lease 192.168.11.159 {
+  starts 0 2017/03/19 11:18:17;
+  ends 0 2017/03/19 11:34:17;
+  cltt 0 2017/03/19 11:18:17;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:d9:64;
+}
+lease 192.168.11.134 {
+  starts 0 2017/03/19 10:46:26;
+  ends 0 2017/03/19 11:18:26;
+  tstp 0 2017/03/19 11:18:26;
+  cltt 0 2017/03/19 10:46:26;
+  binding state free;
+  hardware ethernet 78:31:c1:cf:d9:0c;
+  uid "\001x1\301\317\331\014";
+}
+lease 192.168.11.129 {
+  starts 0 2017/03/19 10:47:54;
+  ends 0 2017/03/19 11:19:54;
+  tstp 0 2017/03/19 11:19:54;
+  cltt 0 2017/03/19 10:47:54;
+  binding state free;
+  hardware ethernet cc:20:e8:7c:dc:e8;
+  uid "\001\314 \350|\334\350";
+}
+lease 192.168.11.177 {
+  starts 0 2017/03/19 11:22:56;
+  ends 0 2017/03/19 11:38:56;
+  cltt 0 2017/03/19 11:22:56;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 34:97:f6:cd:04:fc;
+  uid "\0014\227\366\315\004\374";
+  client-hostname "android-2ac806967effd44f";
+}
+lease 192.168.11.158 {
+  starts 0 2017/03/19 11:23:14;
+  ends 0 2017/03/19 11:39:14;
+  cltt 0 2017/03/19 11:23:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:9f:b5:9f:98:7f;
+  client-hostname "HUAWEI_P9_lite";
+}
+lease 192.168.11.204 {
+  starts 0 2017/03/19 11:23:59;
+  ends 0 2017/03/19 11:55:59;
+  cltt 0 2017/03/19 11:23:59;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet a4:12:42:7d:3e:15;
+}
+lease 192.168.11.163 {
+  starts 0 2017/03/19 11:26:15;
+  ends 0 2017/03/19 11:42:15;
+  cltt 0 2017/03/19 11:26:15;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:e1:98;
+}
+lease 192.168.11.165 {
+  starts 0 2017/03/19 11:26:15;
+  ends 0 2017/03/19 11:42:15;
+  cltt 0 2017/03/19 11:26:15;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:27:95:5c;
+}
+lease 192.168.11.150 {
+  starts 0 2017/03/19 11:26:15;
+  ends 0 2017/03/19 11:42:15;
+  cltt 0 2017/03/19 11:26:15;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 4c:e6:76:f9:85:f6;
+}
+lease 192.168.11.214 {
+  starts 0 2017/03/19 11:26:17;
+  ends 0 2017/03/19 11:58:17;
+  cltt 0 2017/03/19 11:26:17;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 64:20:0c:87:03:a8;
+  uid "\001d \014\207\003\250";
+  client-hostname "iPad";
+}
+lease 192.168.11.159 {
+  starts 0 2017/03/19 11:26:17;
+  ends 0 2017/03/19 11:42:17;
+  cltt 0 2017/03/19 11:26:17;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:d9:64;
+}
+lease 192.168.11.207 {
+  starts 0 2017/03/19 11:29:47;
+  ends 0 2017/03/19 12:01:47;
+  cltt 0 2017/03/19 11:29:47;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 04:52:f3:93:8d:be;
+  uid "\001\004R\363\223\215\276";
+  client-hostname "NumaLabPadmini4";
+}
+lease 192.168.11.158 {
+  starts 0 2017/03/19 11:30:56;
+  ends 0 2017/03/19 11:46:56;
+  cltt 0 2017/03/19 11:30:56;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:9f:b5:9f:98:7f;
+  client-hostname "HUAWEI_P9_lite";
+}
+lease 192.168.11.177 {
+  starts 0 2017/03/19 11:31:03;
+  ends 0 2017/03/19 11:47:03;
+  cltt 0 2017/03/19 11:31:03;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 34:97:f6:cd:04:fc;
+  uid "\0014\227\366\315\004\374";
+  client-hostname "android-2ac806967effd44f";
+}
+lease 192.168.11.153 {
+  starts 0 2017/03/19 11:31:03;
+  ends 0 2017/03/19 12:03:03;
+  cltt 0 2017/03/19 11:31:03;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:09:b4:39;
+  uid "\001\020o?\011\2649";
+  client-hostname "AP106F3F09B439";
+}
+lease 192.168.11.163 {
+  starts 0 2017/03/19 11:34:15;
+  ends 0 2017/03/19 11:50:15;
+  cltt 0 2017/03/19 11:34:15;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:e1:98;
+}
+lease 192.168.11.165 {
+  starts 0 2017/03/19 11:34:15;
+  ends 0 2017/03/19 11:50:15;
+  cltt 0 2017/03/19 11:34:15;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 10:6f:3f:27:95:5c;
+}
+lease 192.168.11.150 {
+  starts 0 2017/03/19 11:34:15;
+  ends 0 2017/03/19 11:50:15;
+  cltt 0 2017/03/19 11:34:15;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 4c:e6:76:f9:85:f6;
+}
+lease 192.168.11.159 {
+  starts 0 2017/03/19 11:34:18;
+  ends 0 2017/03/19 11:50:18;
+  cltt 0 2017/03/19 11:34:18;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:24:a5:ea:d9:64;
+}
+lease 192.168.11.158 {
+  starts 0 2017/03/19 11:38:37;
+  ends 0 2017/03/19 11:54:37;
+  cltt 0 2017/03/19 11:38:37;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:9f:b5:9f:98:7f;
+  client-hostname "HUAWEI_P9_lite";
+}
+lease 192.168.11.177 {
+  starts 0 2017/03/19 11:39:10;
+  ends 0 2017/03/19 11:55:10;
+  cltt 0 2017/03/19 11:39:10;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 34:97:f6:cd:04:fc;
+  uid "\0014\227\366\315\004\374";
+  client-hostname "android-2ac806967effd44f";
+}
