@@ -1,8 +1,12 @@
 package lease
 
 import (
+    "os"
     "fmt"
     "time"
+    "bufio"
+    "io"
+    "regexp"
 )
 
 type Lease struct {
@@ -12,21 +16,77 @@ type Lease struct {
     hostname string
 }
 
-type LeaseFinder struct {
+type leaseFinder struct {
     results map[string]Lease // key: ip Addr
     current *Lease
 }
 
 const layout = "2006/01/02 15:04:05"
 
-func NewLeaseFinder() LeaseFinder {
-    return LeaseFinder{
+// TODO: fat
+func ParseLease(path string) []Lease {
+    fp, err := os.Open(path)
+    if err != nil {
+        fmt.Println(err)
+        return nil
+    }
+    defer fp.Close()
+
+    // regexp setup
+    rLease := regexp.MustCompile(`lease ([0-9¥.]+) {`)
+    rStarts := regexp.MustCompile(`starts ([0-9]) (.*);`)
+    rHwEth := regexp.MustCompile(`hardware ethernet ([0-9A-Fa-f:-]+);`)
+    rHostname := regexp.MustCompile(`client-hostname "(.*)";`)
+    rEnd := regexp.MustCompile(`}`)
+
+    lf := NewLeaseFinder()
+
+    // start reading
+    reader := bufio.NewReaderSize(fp, 4096)
+    for {
+        lineBuf, _, err := reader.ReadLine()
+        line := string(lineBuf)
+
+        if err == io.EOF {
+            break
+        } else if err != nil {
+            panic(err)
+        }
+
+        // try each regexp
+        var res []string = nil
+        res = rLease.FindStringSubmatch(line)
+        if res != nil {
+            lf.FindStart(res[len(res)-1])
+        }
+        res = rStarts.FindStringSubmatch(line)
+        if res != nil {
+            lf.FindStartTime(res[len(res)-1])
+        }
+        res = rHwEth.FindStringSubmatch(line)
+        if res != nil {
+            lf.FindMac(res[len(res)-1])
+        }
+        res = rHostname.FindStringSubmatch(line)
+        if res != nil {
+            lf.FindHostname(res[len(res)-1])
+        }
+        if rEnd.MatchString(line) {
+            lf.FindEnd()
+        }
+    }
+
+    return lf.AllLeases()
+}
+
+func NewLeaseFinder() leaseFinder {
+    return leaseFinder{
         results: make(map[string]Lease),
         current: nil,
     }
 }
 
-func (f *LeaseFinder)FindStart(ip string) {
+func (f *leaseFinder)FindStart(ip string) {
 
     if f.current != nil {
         fmt.Println("findStartLease called before call findEnd. something wrong")
@@ -36,7 +96,7 @@ func (f *LeaseFinder)FindStart(ip string) {
     f.current = &Lease{ip: ip}
 }
 
-func (f *LeaseFinder)FindStartTime(startString string) {
+func (f *leaseFinder)FindStartTime(startString string) {
 
     t, err := time.Parse(layout, startString)
     if err != nil {
@@ -47,15 +107,15 @@ func (f *LeaseFinder)FindStartTime(startString string) {
     f.current.start = &t
 }
 
-func (f *LeaseFinder)FindMac(mac string) {
+func (f *leaseFinder)FindMac(mac string) {
     f.current.mac = mac
 }
 
-func (f *LeaseFinder)FindHostname(hostname string) {
+func (f *leaseFinder)FindHostname(hostname string) {
     f.current.hostname = hostname
 }
 
-func (f *LeaseFinder)FindEnd() {
+func (f *leaseFinder)FindEnd() {
 
     defer func() {
         f.current = nil
@@ -80,9 +140,26 @@ func (f *LeaseFinder)FindEnd() {
     return
 }
 
-func (f *LeaseFinder)PrintAll() {
+func (f *leaseFinder)PrintAll() {
 
     for _, v := range f.results {
         fmt.Println(v.ip + "," + v.start.Format(layout) + "," + v.mac + "," + v.hostname)
     }
+}
+
+func (f *leaseFinder)AllLeases() []Lease {
+    ret := make([]Lease, 0, len(f.results))
+    for _, v := range f.results {
+        ret = append(ret, v)
+    }
+    return ret
+}
+
+func AllHostname(leases []Lease) string {
+    var ret string
+    for _, v := range leases {
+        ret += v.hostname + "\n"
+    }
+    ret = ret[0: len(ret) - 2]
+    return ret
 }
