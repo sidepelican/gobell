@@ -7,6 +7,7 @@ import (
     "bufio"
     "io"
     "regexp"
+    "strings"
 )
 
 type Lease struct {
@@ -160,6 +161,6 @@ func AllHostname(leases []Lease) string {
     for _, v := range leases {
         ret += v.hostname + "\n"
     }
-    ret = ret[0: len(ret) - 2]
+    ret = strings.TrimRight(ret, "\n")
     return ret
 }
