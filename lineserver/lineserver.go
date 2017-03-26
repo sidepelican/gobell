@@ -51,7 +51,12 @@ func handler(w http.ResponseWriter, r *http.Request) {
     }
 
     // load dhcpd.lease
-    hostnames := lease.AllHostname(lease.ParseLease("sample/dhcpd.lease"))
+    leases, err := lease.Parse("sample/dhcpd.lease")
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    hostnames := lease.AllHostname(leases)
     message := linebot.NewTextMessage(hostnames)
 
     // handle event
