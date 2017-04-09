@@ -1,4 +1,4 @@
-package lineserver
+package line
 
 import (
     "net/http"
@@ -7,14 +7,8 @@ import (
 
     "../lease"
 
-    "github.com/BurntSushi/toml"
     "github.com/line/line-bot-sdk-go/linebot"
 )
-
-type LineConfig struct {
-    Secret string
-    Token  string
-}
 
 func StartLineBotServer() {
     http.HandleFunc("/", handler)
@@ -26,20 +20,7 @@ func StartLineBotServer() {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 
-    // TODO: get to global scope
-    var config LineConfig
-    _, err := toml.DecodeFile("lineserver/lineserver.toml", &config)
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    // create bot
-    bot, err := linebot.New(config.Secret, config.Token)
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
+    bot := GetBotClient()
 
     // parse request
     events, err := bot.ParseRequest(r)

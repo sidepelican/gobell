@@ -1,11 +1,11 @@
 package main
 
 import (
-    "./lineserver"
+    "./line"
 
     //"github.com/go-fsnotify/fsnotify"
 )
 
 func main() {
-    lineserver.StartLineBotServer()
+    line.StartLineBotServer()
 }
