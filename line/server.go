@@ -5,20 +5,25 @@ import (
     "log"
     "fmt"
 
-    "../lease"
-
     "github.com/line/line-bot-sdk-go/linebot"
+    "sync"
 )
 
-func StartLineBotServer() {
-    http.HandleFunc("/", handler)
+var linebotHandler func(*linebot.Client, *linebot.Event)
+
+func StartLineBotServer(handler func(*linebot.Client, *linebot.Event)) {
+
+    linebotHandler = handler
+
+    fmt.Println("starting linebot server")
+    http.HandleFunc("/", httpHandler)
     if err := http.ListenAndServe(":8080", nil); err != nil {
         log.Fatal("ListenAndServe: ", err)
         return
     }
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func httpHandler(w http.ResponseWriter, r *http.Request) {
 
     bot := GetBotClient()
 
@@ -31,27 +36,17 @@ func handler(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    // load dhcpd.lease
-    leases, err := lease.Parse("sample/dhcpd.lease")
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-    hostnames := lease.AllHostname(leases)
-    message := linebot.NewTextMessage(hostnames)
+    wg := &sync.WaitGroup{}
+    wg.Add(len(events))
 
     // handle event
     for _, event := range events {
-        if event.Type == linebot.EventTypeMessage {
-
-            replyToken := event.ReplyToken
-            _, err = bot.ReplyMessage(replyToken, message).Do()
-            if err != nil {
-                fmt.Println(err)
-                break
-            }
-        }
+        go func(bot *linebot.Client, event *linebot.Event) {
+            defer wg.Done()
+            linebotHandler(bot, event)
+        }(bot, event)
     }
+    wg.Wait()
 
-    fmt.Fprintf(w, "")
+    fmt.Fprint(w, "{}")
 }
