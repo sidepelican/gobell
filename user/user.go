@@ -9,14 +9,14 @@ import (
 )
 
 type User struct {
-    userId string
-    mac string
+    userId     string
+    mac        string
     lastAppear time.Time
 }
 
-const dbPath = "./users.db"
+var dbPath = "./users.db"
 
-func FindUser(userId string) (User, error) {
+func FindUser(userId string) (*User, error) {
     db := getDB()
     defer db.Close()
 
@@ -38,10 +38,10 @@ func FindUser(userId string) (User, error) {
             fmt.Println(err)
             return nil, err
         }
-        return user, nil
+        return &user, nil
     }
 
-    return nil, error("userid: " + userId + " is not found")
+    return nil, fmt.Errorf("userid: %v is not found", userId)
 }
 
 func InsertUser(user User) error {
@@ -53,7 +53,7 @@ func InsertUser(user User) error {
         return err
     }
 
-    res, err := stmt.Exec(user.userId, user.mac, user.lastAppear)
+    _, err = stmt.Exec(user.userId, user.mac, user.lastAppear)
     if err != nil {
         return err
     }
@@ -70,7 +70,7 @@ func UpdateLastAppear(userId string, appear time.Time) error {
         return err
     }
 
-    res, err := stmt.Exec(appear, userId)
+    _, err = stmt.Exec(appear, userId)
     if err != nil {
         return err
     }
@@ -79,7 +79,7 @@ func UpdateLastAppear(userId string, appear time.Time) error {
 }
 
 func getDB() *sql.DB {
-    const needInit = !exists(dbPath)
+    needInit := !exists(dbPath)
     if needInit {
         os.Create(dbPath)
     }
