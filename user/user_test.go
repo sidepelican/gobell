@@ -19,8 +19,8 @@ func setup() {
     println("setup")
 
     dbPath = "./users_test.db"
-    ctx = GetContext()
     os.Remove(dbPath)
+    ctx = GetContext()
 }
 
 func teardown() {

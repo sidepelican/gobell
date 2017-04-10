@@ -7,6 +7,7 @@ import (
     "bufio"
     "io"
     "time"
+    "strings"
 )
 
 const layout = "2006/01/02 15:04:05"
@@ -21,7 +22,6 @@ func Parse(path string) ([]Lease, error) {
     // file open
     fp, err := os.Open(path)
     if err != nil {
-        fmt.Println(err)
         return nil, err
     }
     defer fp.Close()
@@ -102,7 +102,7 @@ func (f *leaseFinder)FindStartTime(startString string) {
 }
 
 func (f *leaseFinder)FindMac(mac string) {
-    f.current.mac = mac
+    f.current.mac = strings.ToLower(mac)
 }
 
 func (f *leaseFinder)FindHostname(hostname string) {

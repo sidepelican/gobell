@@ -8,6 +8,8 @@ import (
     "os"
 )
 
+var dbPath = "./users.db"
+
 type DBContext struct {
     db *sql.DB
 }
@@ -19,7 +21,14 @@ type User struct {
     lastAppear time.Time
 }
 
-var dbPath = "./users.db"
+func NewUser(userId string, mac string, name string) User {
+    return User{
+        userId: userId,
+        mac:mac,
+        name: name,
+        lastAppear:time.Now(),
+    }
+}
 
 func GetContext() *DBContext {
     return &DBContext{getDB()}
@@ -55,11 +64,35 @@ func (ctx *DBContext)FindUser(userId string) (*User, error) {
     return nil, fmt.Errorf("userid: %v is not found", userId)
 }
 
+func (ctx *DBContext)FindMac(mac string) (*User, error) {
+
+    stmt, err := ctx.db.Prepare("select * from users where mac=?")
+    if err != nil {
+        return nil, err
+    }
+
+    rows, err := stmt.Query(mac)
+    defer rows.Close()
+    if err != nil {
+        return nil, err
+    }
+
+    for rows.Next() {
+        var user User
+        err = rows.Scan(&user.userId, &user.mac, &user.name, &user.lastAppear)
+        if err != nil {
+            fmt.Println(err)
+            return nil, err
+        }
+        return &user, nil
+    }
+
+    return nil, fmt.Errorf("mac: %v is not found", mac)
+}
+
 func (ctx *DBContext)InsertUser(user User) error {
 
-    db := getDB() // FIXME: ctx's DB cannot use ( err: attempt to write a readonly database )
-
-    stmt, err := db.Prepare("insert into users(user_id, mac, name, last_appear) values(?,?,?,?)")
+    stmt, err := ctx.db.Prepare("insert into users(user_id, mac, name, last_appear) values(?,?,?,?)")
     if err != nil {
         return err
     }
