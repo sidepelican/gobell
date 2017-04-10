@@ -11,6 +11,7 @@ import (
 type User struct {
     userId     string
     mac        string
+    name       string
     lastAppear time.Time
 }
 
@@ -26,14 +27,14 @@ func FindUser(userId string) (*User, error) {
     }
 
     rows, err := stmt.Query(userId)
+    defer rows.Close()
     if err != nil {
         return nil, err
     }
 
     for rows.Next() {
-        var index int
         var user User
-        err = rows.Scan(&index, &user.userId, &user.userId, &user.mac)
+        err = rows.Scan(&user.userId, &user.mac, &user.name, &user.lastAppear)
         if err != nil {
             fmt.Println(err)
             return nil, err
@@ -48,12 +49,12 @@ func InsertUser(user User) error {
     db := getDB()
     defer db.Close()
 
-    stmt, err := db.Prepare("insert into users(user_id, mac, last_appear) values(?,?,?)")
+    stmt, err := db.Prepare("insert into users(user_id, mac, name, last_appear) values(?,?,?,?)")
     if err != nil {
         return err
     }
 
-    _, err = stmt.Exec(user.userId, user.mac, user.lastAppear)
+    _, err = stmt.Exec(user.userId, user.mac, user.name, user.lastAppear)
     if err != nil {
         return err
     }
@@ -81,7 +82,12 @@ func UpdateLastAppear(userId string, appear time.Time) error {
 func getDB() *sql.DB {
     needInit := !exists(dbPath)
     if needInit {
-        os.Create(dbPath)
+        _, err := os.Create(dbPath)
+        if err != nil {
+            fmt.Println(err)
+            return nil
+        }
+        fmt.Printf("new .db file created at: %v\n", dbPath)
     }
 
     db, err := sql.Open("sqlite3", dbPath)
@@ -92,10 +98,10 @@ func getDB() *sql.DB {
 
     if needInit {
         q := `CREATE TABLE users (
-         index      INTEGER PRIMARY KEY AUTOINCREMENT,
-         user_id    VARCHAR(255) NULL,
-         mac        VARCHAR(255) NOT NULL,
-         last_apper TIMESTAMP DEFAULT (DATETIME('now','localtime'))
+         user_id     VARCHAR(255) PRIMARY KEY,
+         mac         VARCHAR(255) NOT NULL,
+         name        VARCHAR(255) NOT NULL,
+         last_appear TIMESTAMP DEFAULT (DATETIME('now','localtime'))
         )`
 
         _, err := db.Exec(q)
@@ -103,6 +109,12 @@ func getDB() *sql.DB {
             fmt.Println(err)
             return nil
         }
+        fmt.Println("new table created")
+    }
+
+    if db == nil{
+        fmt.Println("db is nil. something wrong")
+        return nil
     }
 
     return db
