@@ -8,6 +8,10 @@ import (
     "os"
 )
 
+type DBContext struct {
+    db *sql.DB
+}
+
 type User struct {
     userId     string
     mac        string
@@ -17,11 +21,17 @@ type User struct {
 
 var dbPath = "./users.db"
 
-func FindUser(userId string) (*User, error) {
-    db := getDB()
-    defer db.Close()
+func GetContext() *DBContext {
+    return &DBContext{getDB()}
+}
 
-    stmt, err := db.Prepare("select * from users where user_id=?")
+func (ctx *DBContext)Close() {
+    ctx.db.Close()
+}
+
+func (ctx *DBContext)FindUser(userId string) (*User, error) {
+
+    stmt, err := ctx.db.Prepare("select * from users where user_id=?")
     if err != nil {
         return nil, err
     }
@@ -45,9 +55,9 @@ func FindUser(userId string) (*User, error) {
     return nil, fmt.Errorf("userid: %v is not found", userId)
 }
 
-func InsertUser(user User) error {
-    db := getDB()
-    defer db.Close()
+func (ctx *DBContext)InsertUser(user User) error {
+
+    db := getDB() // FIXME: ctx's DB cannot use ( err: attempt to write a readonly database )
 
     stmt, err := db.Prepare("insert into users(user_id, mac, name, last_appear) values(?,?,?,?)")
     if err != nil {
@@ -62,11 +72,9 @@ func InsertUser(user User) error {
     return nil
 }
 
-func UpdateLastAppear(userId string, appear time.Time) error {
-    db := getDB()
-    defer db.Close()
+func (ctx *DBContext)UpdateLastAppear(userId string, appear time.Time) error {
 
-    stmt, err := db.Prepare("update users set last_appear=? where user_id=?")
+    stmt, err := ctx.db.Prepare("update users set last_appear=? where user_id=?")
     if err != nil {
         return err
     }
@@ -82,12 +90,12 @@ func UpdateLastAppear(userId string, appear time.Time) error {
 func getDB() *sql.DB {
     needInit := !exists(dbPath)
     if needInit {
-        _, err := os.Create(dbPath)
+        file, err := os.Create(dbPath)
         if err != nil {
             fmt.Println(err)
             return nil
         }
-        fmt.Printf("new .db file created at: %v\n", dbPath)
+        fmt.Printf("new .db file created at: %v\n", file.Name())
     }
 
     db, err := sql.Open("sqlite3", dbPath)
