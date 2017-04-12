@@ -4,22 +4,85 @@ import (
     "./lease"
     "./line"
     "./user"
-
-    //"github.com/go-fsnotify/fsnotify"
-    "github.com/line/line-bot-sdk-go/linebot"
     "fmt"
     "regexp"
     "sync"
+    "github.com/line/line-bot-sdk-go/linebot"
+    "github.com/go-fsnotify/fsnotify"
+    "github.com/BurntSushi/toml"
 )
 
+type Config struct {
+    LeasePath string
+}
+
+var config Config
+
 func main() {
+
+    _, err := toml.DecodeFile("config.toml", &config)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
     wg := &sync.WaitGroup{}
     wg.Add(1)
+
+    // start file watching
+    watcher, err := fsnotify.NewWatcher()
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    defer watcher.Close()
+
+    err = watcher.Add(config.LeasePath)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    go func() {
+        fmt.Println("start file watcher for:", config.LeasePath)
+        for {
+            select {
+            case event := <-watcher.Events:
+                fmt.Println("event:", event)
+                watchEventHandler(event.Op, event.Name)
+            case err := <-watcher.Errors:
+                fmt.Println("watcher error: ", err)
+                wg.Done()
+            }
+        }
+    }()
+
+    // bot server
     go func() {
         line.StartLineBotServer(lineEventHandler)
         wg.Done()
     }()
+
     wg.Wait()
+}
+
+func watchEventHandler(op fsnotify.Op, filename string) {
+
+    // ignore remove
+    if op&fsnotify.Remove == fsnotify.Remove {
+        return
+    }
+
+    ctx := user.GetContext()
+    defer ctx.Close()
+
+    fmt.Printf("%v is modified!", filename)
+
+    // TODO: update last appear time
+
+    // TODO: notify came members for all
+
+    // TODO: notify left members for all
 }
 
 func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
@@ -54,7 +117,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
         if err == nil {
 
             // load dhcpd.lease
-            leases, err := lease.Parse("sample/dhcpd.lease")
+            leases, err := lease.Parse(config.LeasePath)
             if err != nil {
                 fmt.Println(err)
                 return
@@ -153,7 +216,9 @@ func registeredUserNames(leases lease.Leases) string {
     var ret = ""
     for _, l := range leases {
         user, _ := ctx.FindMac(l.Mac)
-        if user == nil { continue }
+        if user == nil {
+            continue
+        }
 
         ret += fmt.Sprintln(user.Name)
     }
