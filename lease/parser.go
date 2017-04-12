@@ -17,7 +17,7 @@ type leaseFinder struct {
     current *Lease
 }
 
-func Parse(path string) ([]Lease, error) {
+func Parse(path string) (Leases, error) {
 
     // file open
     fp, err := os.Open(path)
@@ -140,7 +140,7 @@ func (f *leaseFinder)PrintAll() {
     }
 }
 
-func (f *leaseFinder)AllLeases() []Lease {
+func (f *leaseFinder)AllLeases() Leases {
     ret := make([]Lease, 0, len(f.results))
     for _, v := range f.results {
         ret = append(ret, v)

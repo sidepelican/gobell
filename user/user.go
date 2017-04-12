@@ -120,6 +120,22 @@ func (ctx *DBContext)UpdateLastAppear(userId string, appear time.Time) error {
     return nil
 }
 
+func (ctx *DBContext)EraseUser(userId string) error {
+
+
+    stmt, err := ctx.db.Prepare("delete from users where user_id=?")
+    if err != nil {
+        return err
+    }
+
+    _, err = stmt.Exec(userId)
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
+
 func getDB() *sql.DB {
     needInit := !exists(dbPath)
     if needInit {

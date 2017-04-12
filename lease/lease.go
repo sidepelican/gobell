@@ -12,7 +12,9 @@ type Lease struct {
     hostname string
 }
 
-func AllHostname(leases []Lease) string {
+type Leases []Lease
+
+func (leases Leases)AllHostname() string {
     var ret string
     for _, v := range leases {
         ret += v.hostname + "\n"

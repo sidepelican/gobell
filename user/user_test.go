@@ -68,6 +68,15 @@ func TestUpdate(t *testing.T) {
     }
 }
 
+func TestErase(t *testing.T) {
+
+    // erase
+    err := ctx.EraseUser(testUser.userId)
+    if err != nil {
+        t.Errorf("erase err: %v", err)
+    }
+}
+
 func TestMain(m *testing.M) {
     setup()
     ret := m.Run()
