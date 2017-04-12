@@ -59,9 +59,13 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
                 fmt.Println(err)
                 return
             }
-            hostnames := leases.AllHostname()
 
-            message := linebot.NewTextMessage(hostnames)
+            var text = ""
+            text += fmt.Sprintln(registeredUserNames(leases))
+            text += "-------------\n"
+            text += leases.AllHostname()
+
+            message := linebot.NewTextMessage(text)
             _, err = bot.ReplyMessage(event.ReplyToken, message).Do()
             if err != nil {
                 fmt.Println(err)
@@ -139,4 +143,20 @@ func isMacAddr(message string) (string, bool) {
     }
 
     return macResult, true
+}
+
+func registeredUserNames(leases lease.Leases) string {
+
+    ctx := user.GetContext()
+    defer ctx.Close()
+
+    var ret = ""
+    for _, l := range leases {
+        user, _ := ctx.FindMac(l.Mac)
+        if user == nil { continue }
+
+        ret += fmt.Sprintln(user.Name)
+    }
+
+    return ret
 }

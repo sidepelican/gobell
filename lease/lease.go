@@ -6,10 +6,10 @@ import (
 )
 
 type Lease struct {
-    start    *time.Time
-    ip       string
-    mac      string
-    hostname string
+    Start    *time.Time
+    Ip       string
+    Mac      string
+    Hostname string
 }
 
 type Leases []Lease
@@ -17,7 +17,7 @@ type Leases []Lease
 func (leases Leases)AllHostname() string {
     var ret string
     for _, v := range leases {
-        ret += v.hostname + "\n"
+        ret += v.Hostname + "\n"
     }
     ret = strings.TrimRight(ret, "\n")
     return ret

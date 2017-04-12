@@ -15,18 +15,18 @@ type DBContext struct {
 }
 
 type User struct {
-    userId     string
-    mac        string
-    name       string
-    lastAppear time.Time
+    UserId     string
+    Mac        string
+    Name       string
+    LastAppear time.Time
 }
 
 func NewUser(userId string, mac string, name string) User {
     return User{
-        userId: userId,
-        mac:mac,
-        name: name,
-        lastAppear:time.Now(),
+        UserId:     userId,
+        Mac:        mac,
+        Name:       name,
+        LastAppear: time.Now(),
     }
 }
 
@@ -34,11 +34,11 @@ func GetContext() *DBContext {
     return &DBContext{getDB()}
 }
 
-func (ctx *DBContext)Close() {
+func (ctx *DBContext) Close() {
     ctx.db.Close()
 }
 
-func (ctx *DBContext)FindUser(userId string) (*User, error) {
+func (ctx *DBContext) FindUser(userId string) (*User, error) {
 
     stmt, err := ctx.db.Prepare("select * from users where user_id=?")
     if err != nil {
@@ -53,7 +53,7 @@ func (ctx *DBContext)FindUser(userId string) (*User, error) {
 
     for rows.Next() {
         var user User
-        err = rows.Scan(&user.userId, &user.mac, &user.name, &user.lastAppear)
+        err = rows.Scan(&user.UserId, &user.Mac, &user.Name, &user.LastAppear)
         if err != nil {
             fmt.Println(err)
             return nil, err
@@ -64,7 +64,7 @@ func (ctx *DBContext)FindUser(userId string) (*User, error) {
     return nil, fmt.Errorf("userid: %v is not found", userId)
 }
 
-func (ctx *DBContext)FindMac(mac string) (*User, error) {
+func (ctx *DBContext) FindMac(mac string) (*User, error) {
 
     stmt, err := ctx.db.Prepare("select * from users where mac=?")
     if err != nil {
@@ -79,7 +79,7 @@ func (ctx *DBContext)FindMac(mac string) (*User, error) {
 
     for rows.Next() {
         var user User
-        err = rows.Scan(&user.userId, &user.mac, &user.name, &user.lastAppear)
+        err = rows.Scan(&user.UserId, &user.Mac, &user.Name, &user.LastAppear)
         if err != nil {
             fmt.Println(err)
             return nil, err
@@ -90,14 +90,14 @@ func (ctx *DBContext)FindMac(mac string) (*User, error) {
     return nil, fmt.Errorf("mac: %v is not found", mac)
 }
 
-func (ctx *DBContext)InsertUser(user User) error {
+func (ctx *DBContext) InsertUser(user User) error {
 
     stmt, err := ctx.db.Prepare("insert into users(user_id, mac, name, last_appear) values(?,?,?,?)")
     if err != nil {
         return err
     }
 
-    _, err = stmt.Exec(user.userId, user.mac, user.name, user.lastAppear)
+    _, err = stmt.Exec(user.UserId, user.Mac, user.Name, user.LastAppear)
     if err != nil {
         return err
     }
@@ -105,7 +105,7 @@ func (ctx *DBContext)InsertUser(user User) error {
     return nil
 }
 
-func (ctx *DBContext)UpdateLastAppear(userId string, appear time.Time) error {
+func (ctx *DBContext) UpdateLastAppear(userId string, appear time.Time) error {
 
     stmt, err := ctx.db.Prepare("update users set last_appear=? where user_id=?")
     if err != nil {
@@ -120,8 +120,7 @@ func (ctx *DBContext)UpdateLastAppear(userId string, appear time.Time) error {
     return nil
 }
 
-func (ctx *DBContext)EraseUser(userId string) error {
-
+func (ctx *DBContext) EraseUser(userId string) error {
 
     stmt, err := ctx.db.Prepare("delete from users where user_id=?")
     if err != nil {
@@ -169,7 +168,7 @@ func getDB() *sql.DB {
         fmt.Println("new table created")
     }
 
-    if db == nil{
+    if db == nil {
         fmt.Println("db is nil. something wrong")
         return nil
     }

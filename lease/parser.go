@@ -87,7 +87,7 @@ func (f *leaseFinder)FindStart(ip string) {
         f.current = nil
     }
 
-    f.current = &Lease{ip: ip}
+    f.current = &Lease{Ip: ip}
 }
 
 func (f *leaseFinder)FindStartTime(startString string) {
@@ -98,15 +98,15 @@ func (f *leaseFinder)FindStartTime(startString string) {
         return
     }
 
-    f.current.start = &t
+    f.current.Start = &t
 }
 
 func (f *leaseFinder)FindMac(mac string) {
-    f.current.mac = strings.ToLower(mac)
+    f.current.Mac = strings.ToLower(mac)
 }
 
 func (f *leaseFinder)FindHostname(hostname string) {
-    f.current.hostname = hostname
+    f.current.Hostname = hostname
 }
 
 func (f *leaseFinder)FindEnd() {
@@ -116,27 +116,27 @@ func (f *leaseFinder)FindEnd() {
     }()
 
     // something dropped
-    if f.current.hostname == "" || f.current.start == nil || f.current.ip == "" || f.current.mac == "" {
+    if f.current.Hostname == "" || f.current.Start == nil || f.current.Ip == "" || f.current.Mac == "" {
         return
     }
 
     // all values are completed
-    old, ok := f.results[f.current.ip]
+    old, ok := f.results[f.current.Ip]
     if ok {
         // when the "start time" is not latest, will be ignored
-        if old.start.After(*f.current.start) {
+        if old.Start.After(*f.current.Start) {
             return
         }
     }
 
-    f.results[f.current.ip] = *f.current
+    f.results[f.current.Ip] = *f.current
 
     return
 }
 
 func (f *leaseFinder)PrintAll() {
     for _, v := range f.results {
-        fmt.Println(v.ip + "," + v.start.Format(layout) + "," + v.mac + "," + v.hostname)
+        fmt.Println(v.Ip + "," + v.Start.Format(layout) + "," + v.Mac + "," + v.Hostname)
     }
 }
 
