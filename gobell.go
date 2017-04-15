@@ -78,7 +78,21 @@ func watchEventHandler(op fsnotify.Op, filename string) {
 
     fmt.Printf("%v is modified!", filename)
 
-    // TODO: update last appear time
+    // load lease file
+    leases, err := lease.Parse(config.LeasePath)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    // update last appear time
+    for _, l := range leases {
+        user, err := ctx.FindMac(l.Mac)
+        if err != nil {
+            continue
+        }
+        ctx.UpdateLastAppear(user.UserId, *l.Start)
+    }
 
     // TODO: notify came members for all
 
