@@ -20,7 +20,6 @@ var config Config
 
 var currentUsers []user.User
 
-
 func main() {
 
     _, err := toml.DecodeFile("config.toml", &config)
@@ -90,12 +89,14 @@ func watchEventHandler(op fsnotify.Op, filename string) {
     // update last appear time
     latestUsers := []user.User{}
     for _, l := range leases {
-        user, err := ctx.FindMac(l.Mac)
+        u, err := ctx.FindMac(l.Mac)
         if err != nil {
+            // unregistered user
+            latestUsers = append(latestUsers, user.NewUser(l.Mac, l.Mac, l.Hostname))
             continue
         }
-        ctx.UpdateLastAppear(user.UserId, *l.Start)
-        latestUsers = append(latestUsers, *user)
+        ctx.UpdateLastAppear(u.UserId, *l.Start)
+        latestUsers = append(latestUsers, *u)
     }
     defer func() {
         currentUsers = latestUsers
@@ -131,7 +132,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
         cameMes += "が来ました"
 
         for _, userId := range allUserId {
-            if _, err := bot.PushMessage(userId, linebot.NewTextMessage(cameMes)).Do(); err != nil{
+            if _, err := bot.PushMessage(userId, linebot.NewTextMessage(cameMes)).Do(); err != nil {
                 fmt.Println(err)
             }
         }
@@ -146,7 +147,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
         leftMes += "がいなくなりました"
 
         for _, userId := range allUserId {
-            if _, err := bot.PushMessage(userId, linebot.NewTextMessage(leftMes)).Do(); err != nil{
+            if _, err := bot.PushMessage(userId, linebot.NewTextMessage(leftMes)).Do(); err != nil {
                 fmt.Println(err)
             }
         }
