@@ -18,6 +18,9 @@ type Config struct {
 
 var config Config
 
+var currentUsers []user.User
+
+
 func main() {
 
     _, err := toml.DecodeFile("config.toml", &config)
@@ -68,7 +71,6 @@ func main() {
 
 func watchEventHandler(op fsnotify.Op, filename string) {
 
-    // ignore remove
     if op&fsnotify.Remove == fsnotify.Remove {
         return
     }
@@ -86,17 +88,78 @@ func watchEventHandler(op fsnotify.Op, filename string) {
     }
 
     // update last appear time
+    latestUsers := []user.User{}
     for _, l := range leases {
         user, err := ctx.FindMac(l.Mac)
         if err != nil {
             continue
         }
         ctx.UpdateLastAppear(user.UserId, *l.Start)
+        latestUsers = append(latestUsers, *user)
+    }
+    defer func() {
+        currentUsers = latestUsers
+    }()
+
+    cameUsers := []user.User{}
+    for _, u := range latestUsers {
+        if !contains(currentUsers, u.UserId) {
+            cameUsers = append(cameUsers, u)
+        }
     }
 
-    // TODO: notify came members for all
+    leftUsers := []user.User{}
+    for _, u := range cameUsers {
+        if !contains(latestUsers, u.UserId) {
+            leftUsers = append(leftUsers, u)
+        }
+    }
 
-    // TODO: notify left members for all
+    allUserId, err := ctx.AllUserId()
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    bot := line.GetBotClient()
+
+    // notify came members for all
+    if len(cameUsers) > 0 {
+        cameMes := ""
+        for _, u := range cameUsers {
+            cameMes += fmt.Sprintf("%vさん\n", u.Name)
+        }
+        cameMes += "が来ました"
+
+        for _, userId := range allUserId {
+            if _, err := bot.PushMessage(userId, linebot.NewTextMessage(cameMes)).Do(); err != nil{
+                fmt.Println(err)
+            }
+        }
+    }
+
+    // notify left members for all
+    if len(leftUsers) > 0 {
+        leftMes := ""
+        for _, u := range cameUsers {
+            leftMes += fmt.Sprintf("%vさん\n", u.Name)
+        }
+        leftMes += "がいなくなりました"
+
+        for _, userId := range allUserId {
+            if _, err := bot.PushMessage(userId, linebot.NewTextMessage(leftMes)).Do(); err != nil{
+                fmt.Println(err)
+            }
+        }
+    }
+}
+
+func contains(users []user.User, userId string) bool {
+    for _, u := range users {
+        if u.UserId == userId {
+            return true
+        }
+    }
+    return false
 }
 
 func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
@@ -138,7 +201,9 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
             }
 
             var text = ""
-            text += fmt.Sprintln(registeredUserNames(leases))
+            for _, u := range currentUsers {
+                text += fmt.Sprintf("%v (%v)\n", u.Name, u.LastAppear)
+            }
             text += "-------------\n"
             text += leases.AllHostname()
 

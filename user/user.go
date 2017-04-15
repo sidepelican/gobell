@@ -38,6 +38,27 @@ func (ctx *DBContext) Close() {
     ctx.db.Close()
 }
 
+func (ctx *DBContext) AllUserId() ([]string, error) {
+
+    rows, err := ctx.db.Query("select user_id from users")
+    defer rows.Close()
+    if err != nil {
+        return nil, err
+    }
+
+    ret := []string{}
+    for rows.Next() {
+        var id string
+        err = rows.Scan(&id)
+        if err != nil {
+            return nil, err
+        }
+        ret = append(ret, id)
+    }
+
+    return ret, nil
+}
+
 func (ctx *DBContext) FindUser(userId string) (*User, error) {
 
     stmt, err := ctx.db.Prepare("select * from users where user_id=?")
@@ -55,7 +76,6 @@ func (ctx *DBContext) FindUser(userId string) (*User, error) {
         var user User
         err = rows.Scan(&user.UserId, &user.Mac, &user.Name, &user.LastAppear)
         if err != nil {
-            fmt.Println(err)
             return nil, err
         }
         return &user, nil
@@ -81,7 +101,6 @@ func (ctx *DBContext) FindMac(mac string) (*User, error) {
         var user User
         err = rows.Scan(&user.UserId, &user.Mac, &user.Name, &user.LastAppear)
         if err != nil {
-            fmt.Println(err)
             return nil, err
         }
         return &user, nil
