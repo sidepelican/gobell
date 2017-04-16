@@ -23,7 +23,7 @@ var currentUsers []user.User
 
 func main() {
 
-    log.SetFlags(log.Lshortfile)
+    log.SetFlags(log.Lshortfile | log.LstdFlags)
 
     _, err := toml.DecodeFile("config.toml", &config)
     if err != nil {
