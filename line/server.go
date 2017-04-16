@@ -31,8 +31,7 @@ func httpHandler(w http.ResponseWriter, r *http.Request) {
     events, err := bot.ParseRequest(r)
     if err != nil {
         // Do something when something bad happened.
-
-        fmt.Println(err)
+        log.Println(err)
         return
     }
 

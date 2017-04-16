@@ -10,6 +10,7 @@ import (
     "github.com/line/line-bot-sdk-go/linebot"
     "github.com/go-fsnotify/fsnotify"
     "github.com/BurntSushi/toml"
+    "log"
 )
 
 type Config struct {
@@ -22,9 +23,11 @@ var currentUsers []user.User
 
 func main() {
 
+    log.SetFlags(log.Lshortfile)
+
     _, err := toml.DecodeFile("config.toml", &config)
     if err != nil {
-        fmt.Println(err)
+        log.Println(err)
         return
     }
 
@@ -34,14 +37,14 @@ func main() {
     // start file watching
     watcher, err := fsnotify.NewWatcher()
     if err != nil {
-        fmt.Println(err)
+        log.Println(err)
         return
     }
     defer watcher.Close()
 
     err = watcher.Add(config.LeasePath)
     if err != nil {
-        fmt.Println(err)
+        log.Println(err)
         return
     }
 
@@ -82,7 +85,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
     // load lease file
     leases, err := lease.Parse(config.LeasePath)
     if err != nil {
-        fmt.Println(err)
+        log.Println(err)
         return
     }
 
@@ -118,7 +121,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
 
     allUserId, err := ctx.AllUserId()
     if err != nil {
-        fmt.Println(err)
+        log.Println(err)
         return
     }
     bot := line.GetBotClient()
@@ -133,7 +136,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
 
         for _, userId := range allUserId {
             if _, err := bot.PushMessage(userId, linebot.NewTextMessage(cameMes)).Do(); err != nil {
-                fmt.Println(err)
+                log.Println(err)
             }
         }
     }
@@ -148,7 +151,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
 
         for _, userId := range allUserId {
             if _, err := bot.PushMessage(userId, linebot.NewTextMessage(leftMes)).Do(); err != nil {
-                fmt.Println(err)
+                log.Println(err)
             }
         }
     }
@@ -172,7 +175,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
         mes := linebot.NewTextMessage("ようこそ！最初にMacアドレスの登録をお願いしております。Macアドレスを入力してください✒️")
         _, err := bot.ReplyMessage(event.ReplyToken, mes).Do()
         if err != nil {
-            fmt.Println(err)
+            log.Println(err)
             return
         }
 
@@ -182,7 +185,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
 
         err := ctx.EraseUser(userId)
         if err != nil {
-            fmt.Println(err)
+            log.Println(err)
             return
         }
 
@@ -197,7 +200,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
             // load dhcpd.lease
             leases, err := lease.Parse(config.LeasePath)
             if err != nil {
-                fmt.Println(err)
+                log.Println(err)
                 return
             }
 
@@ -211,7 +214,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
             message := linebot.NewTextMessage(text)
             _, err = bot.ReplyMessage(event.ReplyToken, message).Do()
             if err != nil {
-                fmt.Println(err)
+                log.Println(err)
                 return
             }
 
@@ -232,7 +235,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
             message := linebot.NewTextMessage("Macアドレスを入力してください")
             _, err := bot.ReplyMessage(event.ReplyToken, message).Do()
             if err != nil {
-                fmt.Println(err)
+                log.Println(err)
                 return
             }
             return
@@ -244,7 +247,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
             message := linebot.NewTextMessage(fmt.Sprintf("%vはすでに登録されています", macAddr))
             _, err := bot.ReplyMessage(event.ReplyToken, message).Do()
             if err != nil {
-                fmt.Println(err)
+                log.Println(err)
                 return
             }
             return
@@ -255,14 +258,14 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
         // request username
         res, err := bot.GetProfile(userId).Do()
         if err != nil {
-            fmt.Println(err)
+            log.Println(err)
             return
         }
 
         // insert new user
         err = ctx.InsertUser(user.NewUser(userId, macAddr, res.DisplayName))
         if err != nil {
-            fmt.Println(err)
+            log.Println(err)
             return
         }
 
@@ -270,7 +273,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
         message := linebot.NewTextMessage(fmt.Sprintf("%vさんの登録が完了しました", res.DisplayName))
         _, err = bot.ReplyMessage(event.ReplyToken, message).Do()
         if err != nil {
-            fmt.Println(err)
+            log.Println(err)
             return
         }
     }

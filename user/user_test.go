@@ -7,10 +7,10 @@ import (
 )
 
 var testUser = User{
-    userId:     "0123456789",
-    mac:        "aa:bb:cc:00:22:44",
-    name:       "TestMan",
-    lastAppear: time.Now(),
+    UserId:     "0123456789",
+    Mac:        "aa:bb:cc:00:22:44",
+    Name:       "TestMan",
+    LastAppear: time.Now(),
 }
 
 var ctx *DBContext
@@ -42,16 +42,16 @@ func TestInsert(t *testing.T) {
 func TestFind(t *testing.T) {
 
     // find
-    found, err := ctx.FindUser(testUser.userId)
+    found, err := ctx.FindUser(testUser.UserId)
     if err != nil {
         t.Errorf("insert err: %v", err)
         return
     }
 
-    if testUser.userId != found.userId ||
-        testUser.mac != found.mac ||
-        testUser.name != found.name ||
-        !testUser.lastAppear.Equal(found.lastAppear) {
+    if testUser.UserId != found.UserId ||
+        testUser.Mac != found.Mac ||
+        testUser.Name != found.Name ||
+        !testUser.LastAppear.Equal(found.LastAppear) {
         t.Errorf("found user failed.\n expected: %v\n actual: %v\n",testUser, found)
     }
 }
@@ -61,8 +61,8 @@ func TestUpdate(t *testing.T) {
     var userCopy = testUser
 
     // update
-    userCopy.lastAppear = userCopy.lastAppear.Add(60)
-    err := ctx.UpdateLastAppear(userCopy.userId, userCopy.lastAppear)
+    userCopy.LastAppear = userCopy.LastAppear.Add(60)
+    err := ctx.UpdateLastAppear(userCopy.UserId, userCopy.LastAppear)
     if err != nil {
         t.Errorf("update err: %v", err)
     }
@@ -71,7 +71,7 @@ func TestUpdate(t *testing.T) {
 func TestErase(t *testing.T) {
 
     // erase
-    err := ctx.EraseUser(testUser.userId)
+    err := ctx.EraseUser(testUser.UserId)
     if err != nil {
         t.Errorf("erase err: %v", err)
     }

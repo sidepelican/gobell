@@ -8,6 +8,7 @@ import (
     "io"
     "time"
     "strings"
+    "log"
 )
 
 const layout = "2006/01/02 15:04:05"
@@ -83,7 +84,7 @@ func newLeaseFinder() leaseFinder {
 func (f *leaseFinder)FindStart(ip string) {
 
     if f.current != nil {
-        fmt.Println("findStartLease called before call findEnd. something wrong")
+        log.Println("findStartLease called before call findEnd. something wrong")
         f.current = nil
     }
 
@@ -94,7 +95,7 @@ func (f *leaseFinder)FindStartTime(startString string) {
 
     t, err := time.Parse(layout, startString)
     if err != nil {
-        fmt.Println(err)
+        log.Println(err)
         return
     }
 

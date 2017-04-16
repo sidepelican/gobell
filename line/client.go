@@ -1,10 +1,10 @@
 package line
 
 import (
-    "fmt"
     "sync"
     "github.com/line/line-bot-sdk-go/linebot"
     "github.com/BurntSushi/toml"
+    "log"
 )
 
 type LineConfig struct {
@@ -21,14 +21,14 @@ func GetBotClient() *linebot.Client {
         var config LineConfig
         _, err := toml.DecodeFile("line/lineserver.toml", &config)
         if err != nil {
-            fmt.Println(err)
+            log.Println(err)
             return
         }
 
         // create bot
         bot, err = linebot.New(config.Secret, config.Token)
         if err != nil {
-            fmt.Println(err)
+            log.Println(err)
             return
         }
     })

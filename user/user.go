@@ -6,6 +6,7 @@ import (
     "time"
     _ "github.com/mattn/go-sqlite3"
     "os"
+    "log"
 )
 
 var dbPath = "./users.db"
@@ -159,15 +160,15 @@ func getDB() *sql.DB {
     if needInit {
         file, err := os.Create(dbPath)
         if err != nil {
-            fmt.Println(err)
+            log.Println(err)
             return nil
         }
-        fmt.Printf("new .db file created at: %v\n", file.Name())
+        log.Printf("new .db file created at: %v\n", file.Name())
     }
 
     db, err := sql.Open("sqlite3", dbPath)
     if err != nil {
-        fmt.Println(err)
+        log.Println(err)
         return nil
     }
 
@@ -181,14 +182,14 @@ func getDB() *sql.DB {
 
         _, err := db.Exec(q)
         if err != nil {
-            fmt.Println(err)
+            log.Println(err)
             return nil
         }
-        fmt.Println("new table created")
+        log.Println("new table created")
     }
 
     if db == nil {
-        fmt.Println("db is nil. something wrong")
+        log.Println("db is nil. something wrong")
         return nil
     }
 
