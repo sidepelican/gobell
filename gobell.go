@@ -80,7 +80,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
     ctx := user.GetContext()
     defer ctx.Close()
 
-    log.Printf("%v is modified!", filename)
+    log.Println(filename, "is modified!")
 
     // load lease file
     leases, err := lease.Parse(config.LeasePath)
@@ -92,8 +92,8 @@ func watchEventHandler(op fsnotify.Op, filename string) {
     // update last appear time
     latestUsers := []user.User{}
     for _, l := range leases {
-        u, err := ctx.FindMac(l.Mac)
-        if err != nil {
+        u, _ := ctx.FindMac(l.Mac)
+        if u == nil {
             // unregistered user
             latestUsers = append(latestUsers, user.NewUser(l.Mac, l.Mac, l.Hostname))
             continue
@@ -101,9 +101,6 @@ func watchEventHandler(op fsnotify.Op, filename string) {
         ctx.UpdateLastAppear(u.UserId, *l.Start)
         latestUsers = append(latestUsers, *u)
     }
-    defer func() {
-        currentUsers = latestUsers
-    }()
 
     cameUsers := []user.User{}
     for _, u := range latestUsers {
@@ -113,12 +110,15 @@ func watchEventHandler(op fsnotify.Op, filename string) {
     }
 
     leftUsers := []user.User{}
-    for _, u := range cameUsers {
+    for _, u := range currentUsers {
         if !contains(latestUsers, u.UserId) {
             leftUsers = append(leftUsers, u)
         }
     }
 
+    currentUsers = latestUsers
+
+    // notify
     allUserId, err := ctx.AllUserId()
     if err != nil {
         log.Println(err)
