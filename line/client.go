@@ -3,14 +3,9 @@ package line
 import (
     "sync"
     "github.com/line/line-bot-sdk-go/linebot"
-    "github.com/BurntSushi/toml"
     "log"
+    "os"
 )
-
-type LineConfig struct {
-    Secret string
-    Token  string
-}
 
 var once sync.Once
 var bot *linebot.Client
@@ -18,15 +13,13 @@ var bot *linebot.Client
 func GetBotClient() *linebot.Client {
 
     once.Do(func() {
-        var config LineConfig
-        _, err := toml.DecodeFile("line/lineserver.toml", &config)
-        if err != nil {
-            log.Println(err)
-            return
-        }
 
         // create bot
-        bot, err = linebot.New(config.Secret, config.Token)
+        lineToken := os.Getenv("LINE_BOT_TOKEN")
+        lineSecret := os.Getenv("LINE_BOT_SECRET")
+
+        var err error
+        bot, err = linebot.New(lineSecret, lineToken)
         if err != nil {
             log.Println(err)
             return

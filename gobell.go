@@ -80,7 +80,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
     ctx := user.GetContext()
     defer ctx.Close()
 
-    fmt.Printf("%v is modified!", filename)
+    log.Printf("%v is modified!", filename)
 
     // load lease file
     leases, err := lease.Parse(config.LeasePath)
@@ -204,9 +204,10 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
                 return
             }
 
+            const layout = "15:04"
             var text = ""
             for _, u := range currentUsers {
-                text += fmt.Sprintf("%v (%v)\n", u.Name, u.LastAppear)
+                text += fmt.Sprintf("%v (%v)\n", u.Name, u.LastAppear.Format(layout))
             }
             text += "-------------\n"
             text += leases.AllHostname()
