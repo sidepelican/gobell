@@ -87,7 +87,7 @@ func (ctx *DBContext) FindUser(userId string) (*User, error) {
 
 func (ctx *DBContext) FindMac(mac string) (*User, error) {
 
-    stmt, err := ctx.db.Prepare("select * from users where mac=?")
+    stmt, err := ctx.db.Prepare("select * from users where mac like ?")
     if err != nil {
         return nil, err
     }

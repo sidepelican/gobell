@@ -291,6 +291,7 @@ func isMacAddr(message string) (string, bool) {
         return "", false
     }
 
+    macResult = lease.TrimMacAddr(macResult)
     return macResult, true
 }
 

@@ -22,3 +22,9 @@ func (leases Leases)AllHostname() string {
     ret = strings.TrimRight(ret, "\n")
     return ret
 }
+
+func TrimMacAddr(s string) string {
+    ret := strings.ToLower(s)
+    ret = strings.Replace(ret,`-`, `:`, -1)
+    return ret
+}

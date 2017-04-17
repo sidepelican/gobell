@@ -15,7 +15,7 @@ func StartLineBotServer(handler func(*linebot.Client, *linebot.Event)) {
 
     linebotHandler = handler
 
-    fmt.Println("starting linebot server")
+    log.Println("starting linebot server")
     http.HandleFunc("/", httpHandler)
     if err := http.ListenAndServe(":8080", nil); err != nil {
         log.Fatal("ListenAndServe: ", err)

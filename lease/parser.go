@@ -7,7 +7,6 @@ import (
     "bufio"
     "io"
     "time"
-    "strings"
     "log"
 )
 
@@ -103,7 +102,7 @@ func (f *leaseFinder)FindStartTime(startString string) {
 }
 
 func (f *leaseFinder)FindMac(mac string) {
-    f.current.Mac = strings.ToLower(mac)
+    f.current.Mac = TrimMacAddr(mac)
 }
 
 func (f *leaseFinder)FindHostname(hostname string) {

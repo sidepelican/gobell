@@ -4,6 +4,7 @@ import (
     "testing"
     "time"
     "os"
+    "strings"
 )
 
 var testUser = User{
@@ -43,6 +44,34 @@ func TestFind(t *testing.T) {
 
     // find
     found, err := ctx.FindUser(testUser.UserId)
+    if err != nil {
+        t.Errorf("insert err: %v", err)
+        return
+    }
+
+    if testUser.UserId != found.UserId ||
+        testUser.Mac != found.Mac ||
+        testUser.Name != found.Name ||
+        !testUser.LastAppear.Equal(found.LastAppear) {
+        t.Errorf("found user failed.\n expected: %v\n actual: %v\n",testUser, found)
+    }
+
+    // mac
+    found, err = ctx.FindMac(testUser.Mac)
+    if err != nil {
+        t.Errorf("insert err: %v", err)
+        return
+    }
+
+    if testUser.UserId != found.UserId ||
+        testUser.Mac != found.Mac ||
+        testUser.Name != found.Name ||
+        !testUser.LastAppear.Equal(found.LastAppear) {
+        t.Errorf("found user failed.\n expected: %v\n actual: %v\n",testUser, found)
+    }
+
+    // mac uppercase
+    found, err = ctx.FindMac(strings.ToUpper(testUser.Mac))
     if err != nil {
         t.Errorf("insert err: %v", err)
         return
