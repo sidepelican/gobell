@@ -11,12 +11,12 @@ import (
     "github.com/go-fsnotify/fsnotify"
     "github.com/BurntSushi/toml"
     "log"
+    "path"
 )
 
 type Config struct {
     LeasePath string
 }
-
 var config Config
 
 var currentUsers []user.User
@@ -42,21 +42,22 @@ func main() {
     }
     defer watcher.Close()
 
-    err = watcher.Add(config.LeasePath)
+    leaseDir, _ := path.Split(config.LeasePath)
+    err = watcher.Add(leaseDir)
     if err != nil {
         log.Println(err)
         return
     }
 
     go func() {
-        fmt.Println("start file watcher for:", config.LeasePath)
+        log.Println("start file watcher for:", config.LeasePath)
         for {
             select {
             case event := <-watcher.Events:
-                fmt.Println("event:", event)
+                log.Println("watcher:", event)
                 watchEventHandler(event.Op, event.Name)
             case err := <-watcher.Errors:
-                fmt.Println("watcher error: ", err)
+                log.Println("watcher error:", err)
                 wg.Done()
             }
         }
@@ -73,14 +74,15 @@ func main() {
 
 func watchEventHandler(op fsnotify.Op, filename string) {
 
+    if filename != config.LeasePath {
+        return
+    }
     if op&fsnotify.Remove == fsnotify.Remove {
         return
     }
 
     ctx := user.GetContext()
     defer ctx.Close()
-
-    log.Println(filename, "is modified!")
 
     // load lease file
     leases, err := lease.Parse(config.LeasePath)
