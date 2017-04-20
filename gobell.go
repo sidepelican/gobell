@@ -7,6 +7,9 @@ import (
     "log"
     "path"
     "sort"
+    "path/filepath"
+    "os"
+    "strings"
 
     "github.com/sidepelican/gobell/lease"
     "github.com/sidepelican/gobell/udb"
@@ -28,7 +31,7 @@ func main() {
 
     log.SetFlags(log.Lshortfile | log.LstdFlags)
 
-    _, err := toml.DecodeFile("config.toml", &config)
+    _, err := toml.DecodeFile(getRunPath() + "config.toml", &config)
     if err != nil {
         log.Println(err)
         return
@@ -308,4 +311,20 @@ func registeredUserNames(leases lease.Leases) string {
     }
 
     return ret
+}
+
+func getRunPath() string {
+
+    dir, err := filepath.Abs(filepath.Dir(os.Args[0])) // Get the absolute path at Executing file. Reference：http://stackoverflow.com/questions/18537257/golang-how-to-get-the-directory-of-the-currently-running-file
+    if err != nil {
+        log.Println(err)
+        return ""
+    }
+
+    // for `$go run ~~` support
+    if strings.HasPrefix(dir, "/var") {
+        return ""
+    }
+
+    return dir + "/"
 }
