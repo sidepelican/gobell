@@ -21,7 +21,7 @@ func GetBotClient() *linebot.Client {
         var err error
         bot, err = linebot.New(lineSecret, lineToken)
         if err != nil {
-            log.Println(err)
+            log.Fatal(err)
             return
         }
     })

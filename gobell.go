@@ -314,7 +314,6 @@ func registeredUserNames(leases lease.Leases) string {
 }
 
 func getRunPath() string {
-
     dir, err := filepath.Abs(filepath.Dir(os.Args[0])) // Get the absolute path at Executing file. Reference：http://stackoverflow.com/questions/18537257/golang-how-to-get-the-directory-of-the-currently-running-file
     if err != nil {
         log.Println(err)

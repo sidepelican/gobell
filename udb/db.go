@@ -7,9 +7,13 @@ import (
     "fmt"
     "time"
     _ "github.com/mattn/go-sqlite3"
+    "path/filepath"
+    "strings"
 )
 
-var dbPath = "./users.db"
+func getDBPath() string {
+    return getRunPath() + "users.db"
+}
 
 type DBContext struct {
     db *sql.DB
@@ -140,9 +144,9 @@ func (ctx *DBContext) EraseUser(userId string) error {
 }
 
 func getDB() *sql.DB {
-    needInit := !exists(dbPath)
+    needInit := !exists(getDBPath())
     if needInit {
-        file, err := os.Create(dbPath)
+        file, err := os.Create(getDBPath())
         if err != nil {
             log.Println(err)
             return nil
@@ -150,7 +154,7 @@ func getDB() *sql.DB {
         log.Printf("new .db file created at: %v\n", file.Name())
     }
 
-    db, err := sql.Open("sqlite3", dbPath)
+    db, err := sql.Open("sqlite3", getDBPath())
     if err != nil {
         log.Println(err)
         return nil
@@ -183,4 +187,19 @@ func getDB() *sql.DB {
 func exists(filename string) bool {
     _, err := os.Stat(filename)
     return err == nil
+}
+
+func getRunPath() string {
+    dir, err := filepath.Abs(filepath.Dir(os.Args[0])) // Get the absolute path at Executing file. Reference：http://stackoverflow.com/questions/18537257/golang-how-to-get-the-directory-of-the-currently-running-file
+    if err != nil {
+        log.Println(err)
+        return ""
+    }
+
+    // for `$go run ~~` support
+    if strings.HasPrefix(dir, "/var") {
+        return ""
+    }
+
+    return dir + "/"
 }
