@@ -3,7 +3,7 @@ package main
 import (
     "./lease"
     "./line"
-    "./user"
+    "./udb"
     "fmt"
     "regexp"
     "sync"
@@ -12,6 +12,7 @@ import (
     "github.com/BurntSushi/toml"
     "log"
     "path"
+    "sort"
 )
 
 type Config struct {
@@ -19,7 +20,7 @@ type Config struct {
 }
 var config Config
 
-var currentUsers []user.User
+var currentUsers udb.Users
 
 func main() {
 
@@ -81,7 +82,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
         return
     }
 
-    ctx := user.GetContext()
+    ctx := udb.GetContext()
     defer ctx.Close()
 
     // load lease file
@@ -92,26 +93,29 @@ func watchEventHandler(op fsnotify.Op, filename string) {
     }
 
     // update last appear time
-    latestUsers := []user.User{}
+    latestUsers := udb.Users{}
     for _, l := range leases {
         u, _ := ctx.FindMac(l.Mac)
         if u == nil {
             // unregistered user
-            latestUsers = append(latestUsers, user.NewUser(l.Mac, l.Mac, l.Hostname))
+            unregisteredUser := udb.NewUser(l.Mac, l.Mac, l.Hostname)
+            unregisteredUser.LastAppear = *l.Start
+            latestUsers = append(latestUsers, unregisteredUser)
             continue
         }
         ctx.UpdateLastAppear(u.UserId, *l.Start)
         latestUsers = append(latestUsers, *u)
     }
+    sort.Sort(latestUsers)
 
-    cameUsers := []user.User{}
+    cameUsers := udb.Users{}
     for _, u := range latestUsers {
         if !contains(currentUsers, u.UserId) {
             cameUsers = append(cameUsers, u)
         }
     }
 
-    leftUsers := []user.User{}
+    leftUsers := udb.Users{}
     for _, u := range currentUsers {
         if !contains(latestUsers, u.UserId) {
             leftUsers = append(leftUsers, u)
@@ -159,7 +163,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
     }
 }
 
-func contains(users []user.User, userId string) bool {
+func contains(users udb.Users, userId string) bool {
     for _, u := range users {
         if u.UserId == userId {
             return true
@@ -182,7 +186,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
         }
 
     case linebot.EventTypeLeave:
-        ctx := user.GetContext()
+        ctx := udb.GetContext()
         defer ctx.Close()
 
         err := ctx.EraseUser(userId)
@@ -192,27 +196,18 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
         }
 
     case linebot.EventTypeMessage:
-        ctx := user.GetContext()
+        ctx := udb.GetContext()
         defer ctx.Close()
 
         // for registered user
         _, err := ctx.FindUser(userId)
         if err == nil {
-
-            // load dhcpd.lease
-            leases, err := lease.Parse(config.LeasePath)
-            if err != nil {
-                log.Println(err)
-                return
-            }
-
+            // reply currentUsers
             const layout = "15:04"
             var text = ""
             for _, u := range currentUsers {
                 text += fmt.Sprintf("%v (%v)\n", u.Name, u.LastAppear.Format(layout))
             }
-            text += "-------------\n"
-            text += leases.AllHostname()
 
             message := linebot.NewTextMessage(text)
             _, err = bot.ReplyMessage(event.ReplyToken, message).Do()
@@ -266,7 +261,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
         }
 
         // insert new user
-        err = ctx.InsertUser(user.NewUser(userId, macAddr, res.DisplayName))
+        err = ctx.InsertUser(udb.NewUser(userId, macAddr, res.DisplayName))
         if err != nil {
             log.Println(err)
             return
@@ -297,7 +292,7 @@ func isMacAddr(message string) (string, bool) {
 
 func registeredUserNames(leases lease.Leases) string {
 
-    ctx := user.GetContext()
+    ctx := udb.GetContext()
     defer ctx.Close()
 
     var ret = ""

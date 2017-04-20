@@ -1,34 +1,18 @@
-package user
+package udb
 
 import (
     "database/sql"
+    "os"
+    "log"
     "fmt"
     "time"
     _ "github.com/mattn/go-sqlite3"
-    "os"
-    "log"
 )
 
 var dbPath = "./users.db"
 
 type DBContext struct {
     db *sql.DB
-}
-
-type User struct {
-    UserId     string
-    Mac        string
-    Name       string
-    LastAppear time.Time
-}
-
-func NewUser(userId string, mac string, name string) User {
-    return User{
-        UserId:     userId,
-        Mac:        mac,
-        Name:       name,
-        LastAppear: time.Now(),
-    }
 }
 
 func GetContext() *DBContext {
