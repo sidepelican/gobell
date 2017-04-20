@@ -1,18 +1,20 @@
 package main
 
 import (
-    "./lease"
-    "./line"
-    "./udb"
     "fmt"
     "regexp"
     "sync"
-    "github.com/line/line-bot-sdk-go/linebot"
-    "github.com/go-fsnotify/fsnotify"
-    "github.com/BurntSushi/toml"
     "log"
     "path"
     "sort"
+
+    "github.com/sidepelican/gobell/lease"
+    "github.com/sidepelican/gobell/udb"
+    "github.com/sidepelican/gobell/line"
+
+    "github.com/line/line-bot-sdk-go/linebot"
+    "github.com/go-fsnotify/fsnotify"
+    "github.com/BurntSushi/toml"
 )
 
 type Config struct {
