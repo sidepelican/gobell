@@ -11,6 +11,7 @@ import (
 )
 
 const layout = "2006/01/02 15:04:05"
+var timeZone = time.UTC
 
 type leaseFinder struct {
     results map[string]Lease // key: ip Addr
@@ -92,7 +93,7 @@ func (f *leaseFinder)FindStart(ip string) {
 
 func (f *leaseFinder)FindStartTime(startString string) {
 
-    t, err := time.Parse(layout, startString)
+    t, err := time.ParseInLocation(layout, startString, timeZone)
     if err != nil {
         log.Println(err)
         return

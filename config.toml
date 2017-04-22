@@ -1,1 +1,1 @@
-leasepath = "sample/dhcpd.leases"
+leasepath = "lease/dhcpd_sample.leases"

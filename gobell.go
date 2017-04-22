@@ -213,6 +213,7 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
             for _, u := range currentUsers {
                 text += fmt.Sprintf("%v (%v)\n", u.Name, u.LastAppear.Format(layout))
             }
+            text = strings.TrimRight(text, "\n")
 
             message := linebot.NewTextMessage(text)
             _, err = bot.ReplyMessage(event.ReplyToken, message).Do()
