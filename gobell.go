@@ -29,7 +29,7 @@ var currentUsers udb.Users
 
 func main() {
 
-    log.SetFlags(log.Lshortfile | log.LstdFlags)
+    log.SetFlags(log.Lshortfile)
 
     _, err := toml.DecodeFile(getRunPath() + "config.toml", &config)
     if err != nil {
@@ -41,32 +41,15 @@ func main() {
     wg.Add(1)
 
     // start file watching
-    watcher, err := fsnotify.NewWatcher()
-    if err != nil {
-        log.Println(err)
-        return
-    }
-    defer watcher.Close()
-
     leaseDir, _ := path.Split(config.LeasePath)
-    err = watcher.Add(leaseDir)
     if err != nil {
         log.Println(err)
         return
     }
 
     go func() {
-        log.Println("start file watcher for:", config.LeasePath)
-        for {
-            select {
-            case event := <-watcher.Events:
-                log.Println("watcher:", event)
-                watchEventHandler(event.Op, event.Name)
-            case err := <-watcher.Errors:
-                log.Println("watcher error:", err)
-                wg.Done()
-            }
-        }
+        startFileWatcher(leaseDir, watchEventHandler)
+        wg.Done()
     }()
 
     // bot server
@@ -76,6 +59,37 @@ func main() {
     }()
 
     wg.Wait()
+}
+
+func startFileWatcher(watchPath string, handler func(fsnotify.Op, string)) {
+
+    watcher, err := fsnotify.NewWatcher()
+    if err != nil {
+        log.Println(err)
+        return
+    }
+    defer watcher.Close()
+
+    err = watcher.Add(watchPath)
+    if err != nil {
+        log.Println(err)
+        return
+    }
+
+    absPath, err := filepath.Abs(watchPath)
+    if err != nil {
+        absPath = watchPath
+    }
+
+    log.Println("start file watcher for:", absPath)
+    for {
+        select {
+        case event := <-watcher.Events:
+            handler(event.Op, event.Name)
+        case err := <-watcher.Errors:
+            log.Println("watcher error:", err)
+        }
+    }
 }
 
 func watchEventHandler(op fsnotify.Op, filename string) {
@@ -315,7 +329,7 @@ func registeredUserNames(leases lease.Leases) string {
 }
 
 func getRunPath() string {
-    dir, err := filepath.Abs(filepath.Dir(os.Args[0])) // Get the absolute path at Executing file. Reference：http://stackoverflow.com/questions/18537257/golang-how-to-get-the-directory-of-the-currently-running-file
+    dir, err := os.Executable()
     if err != nil {
         log.Println(err)
         return ""
@@ -326,5 +340,5 @@ func getRunPath() string {
         return ""
     }
 
-    return dir + "/"
+    return path.Dir(dir) + "/"
 }

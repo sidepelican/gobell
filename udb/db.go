@@ -7,8 +7,8 @@ import (
     "fmt"
     "time"
     _ "github.com/mattn/go-sqlite3"
-    "path/filepath"
     "strings"
+    "path"
 )
 
 func getDBPath() string {
@@ -190,7 +190,7 @@ func exists(filename string) bool {
 }
 
 func getRunPath() string {
-    dir, err := filepath.Abs(filepath.Dir(os.Args[0])) // Get the absolute path at Executing file. Reference：http://stackoverflow.com/questions/18537257/golang-how-to-get-the-directory-of-the-currently-running-file
+    dir, err := os.Executable()
     if err != nil {
         log.Println(err)
         return ""
@@ -201,5 +201,5 @@ func getRunPath() string {
         return ""
     }
 
-    return dir + "/"
+    return path.Dir(dir) + "/"
 }
