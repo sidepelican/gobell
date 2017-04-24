@@ -25,7 +25,6 @@ func setup() {
 
 func teardown() {
     println("teardown")
-
 }
 
 func TestUnregistered(t *testing.T) {
@@ -43,7 +42,7 @@ func TestUnregistered(t *testing.T) {
 
         // unregistered user
         unregisteredUser := udb.NewUser(l.Mac, l.Mac, l.Hostname)
-        unregisteredUser.LastAppear = *l.Start
+        unregisteredUser.LastAppear = l.Start.Local()
         latestUsers = append(latestUsers, unregisteredUser)
     }
     currentUsers = latestUsers

@@ -122,7 +122,7 @@ func watchEventHandler(op fsnotify.Op, filePath string) {
         if u == nil {
             // unregistered user
             unregisteredUser := udb.NewUser(l.Mac, l.Mac, l.Hostname)
-            unregisteredUser.LastAppear = *l.Start
+            unregisteredUser.LastAppear = l.Start.Local()
             latestUsers = append(latestUsers, unregisteredUser)
             continue
         }
@@ -340,7 +340,7 @@ func getRunPath() string {
     }
 
     // for `$go run ~~` support
-    if strings.HasPrefix(dir, "/var") {
+    if strings.HasPrefix(dir, "/var") || strings.HasPrefix(dir, "/tmp")  {
         return ""
     }
 
