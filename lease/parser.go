@@ -99,7 +99,8 @@ func (f *leaseFinder)FindStartTime(startString string) {
         return
     }
 
-    f.current.Start = &t
+    localTime := t.Local()
+    f.current.Start = &localTime
 }
 
 func (f *leaseFinder)FindMac(mac string) {

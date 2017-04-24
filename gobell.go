@@ -18,6 +18,7 @@ import (
     "github.com/line/line-bot-sdk-go/linebot"
     "github.com/go-fsnotify/fsnotify"
     "github.com/BurntSushi/toml"
+    "time"
 )
 
 type Config struct {
@@ -92,14 +93,17 @@ func startFileWatcher(watchPath string, handler func(fsnotify.Op, string)) {
     }
 }
 
-func watchEventHandler(op fsnotify.Op, filename string) {
+func watchEventHandler(op fsnotify.Op, filePath string) {
 
-    if filename != config.LeasePath {
+    if filePath != config.LeasePath {
         return
     }
     if op&fsnotify.Remove == fsnotify.Remove {
         return
     }
+
+    // wait a minute to sum sequentially events
+    time.Sleep(1 * time.Minute)
 
     ctx := udb.GetContext()
     defer ctx.Close()
@@ -169,7 +173,7 @@ func watchEventHandler(op fsnotify.Op, filename string) {
     // notify left members for all
     if len(leftUsers) > 0 {
         leftMes := ""
-        for _, u := range cameUsers {
+        for _, u := range leftUsers {
             leftMes += fmt.Sprintf("%vさん\n", u.Name)
         }
         leftMes += "がいなくなりました"

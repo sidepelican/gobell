@@ -11,8 +11,9 @@ import (
     "path"
 )
 
+var dbPath = "users.db"
 func getDBPath() string {
-    return getRunPath() + "users.db"
+    return getRunPath() + dbPath
 }
 
 type DBContext struct {
@@ -62,12 +63,12 @@ func (ctx *DBContext) FindUser(userId string) (*User, error) {
     }
 
     for rows.Next() {
-        var user User
+        user := new(User)
         err = rows.Scan(&user.UserId, &user.Mac, &user.Name, &user.LastAppear)
         if err != nil {
             return nil, err
         }
-        return &user, nil
+        return user, nil
     }
 
     return nil, fmt.Errorf("userid: %v is not found", userId)
