@@ -1,29 +1,30 @@
 package main
 
 import (
-    "fmt"
-    "regexp"
     "sync"
     "log"
     "path"
-    "sort"
-    "path/filepath"
     "os"
     "strings"
+    "path/filepath"
+    "time"
+    "sort"
+    "fmt"
+    "regexp"
 
+    "github.com/sidepelican/gobell/line"
     "github.com/sidepelican/gobell/lease"
     "github.com/sidepelican/gobell/udb"
-    "github.com/sidepelican/gobell/line"
 
-    "github.com/line/line-bot-sdk-go/linebot"
-    "github.com/go-fsnotify/fsnotify"
     "github.com/BurntSushi/toml"
-    "time"
+    "github.com/go-fsnotify/fsnotify"
+    "github.com/line/line-bot-sdk-go/linebot"
 )
 
 type Config struct {
     LeasePath string
 }
+
 var config Config
 
 var currentUsers udb.Users
@@ -32,7 +33,7 @@ func main() {
 
     log.SetFlags(log.Lshortfile)
 
-    _, err := toml.DecodeFile(getRunPath() + "config.toml", &config)
+    _, err := toml.DecodeFile(getRunPath()+"config.toml", &config)
     if err != nil {
         log.Println(err)
         return
@@ -61,7 +62,6 @@ func main() {
 
     wg.Wait()
 }
-
 func startFileWatcher(watchPath string, handler func(fsnotify.Op, string)) {
 
     watcher, err := fsnotify.NewWatcher()
@@ -131,19 +131,8 @@ func watchEventHandler(op fsnotify.Op, filePath string) {
     }
     sort.Sort(latestUsers)
 
-    cameUsers := udb.Users{}
-    for _, u := range latestUsers {
-        if !contains(currentUsers, u.UserId) {
-            cameUsers = append(cameUsers, u)
-        }
-    }
-
-    leftUsers := udb.Users{}
-    for _, u := range currentUsers {
-        if !contains(latestUsers, u.UserId) {
-            leftUsers = append(leftUsers, u)
-        }
-    }
+    cameUsers := latestUsers.Difference(currentUsers)
+    leftUsers := currentUsers.Difference(latestUsers)
 
     currentUsers = latestUsers
 
@@ -186,15 +175,6 @@ func watchEventHandler(op fsnotify.Op, filePath string) {
     }
 }
 
-func contains(users udb.Users, userId string) bool {
-    for _, u := range users {
-        if u.UserId == userId {
-            return true
-        }
-    }
-    return false
-}
-
 func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
 
     userId := event.Source.UserID
@@ -219,89 +199,75 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
         }
 
     case linebot.EventTypeMessage:
-        ctx := udb.GetContext()
-        defer ctx.Close()
 
-        // for registered user
-        _, err := ctx.FindUser(userId)
-        if err == nil {
-            // reply currentUsers
-            const layout = "15:04"
-            var text = ""
-            for _, u := range currentUsers {
-                text += fmt.Sprintf("%v (%v)\n", u.Name, u.LastAppear.Format(layout))
+        replyText := func() string {
+            ctx := udb.GetContext()
+            defer ctx.Close()
+
+            // for registered user
+            _, err := ctx.FindUser(userId)
+            if err == nil {
+                // reply currentUsers
+                const layout = "15:04"
+                var text = ""
+                for _, u := range currentUsers {
+                    text += fmt.Sprintf("%v (%v)\n", u.Name, u.LastAppear.Format(layout))
+                }
+                text = strings.TrimRight(text, "\n")
+                return text
             }
-            text = strings.TrimRight(text, "\n")
 
-            message := linebot.NewTextMessage(text)
-            _, err = bot.ReplyMessage(event.ReplyToken, message).Do()
+            // for new visiter
+            textMessage, ok := event.Message.(*linebot.TextMessage)
+            if ok == false {
+                // ignore photo, video, etc messages
+                return ""
+            }
+
+            // check the message is mac addr or not
+            macAddr, ok := getMacAddr(textMessage.Text)
+            if ok == false {
+                // mac addr not found. err reply
+                return "Macアドレスを入力してください"
+            }
+
+            // check the mac addr is not registered
+            _, err = ctx.FindMac(macAddr)
+            if err == nil {
+                return fmt.Sprintf("%vはすでに登録されています", macAddr)
+            }
+
+            // register
+
+            // request username
+            res, err := bot.GetProfile(userId).Do()
+            if err != nil {
+                log.Println(err)
+                return err.Error()
+            }
+
+            // insert new user
+            err = ctx.InsertUser(udb.NewUser(userId, macAddr, res.DisplayName))
+            if err != nil {
+                log.Println(err)
+                return err.Error()
+            }
+
+            // insert succeeded
+            return fmt.Sprintf("%vさんの登録が完了しました", res.DisplayName)
+        }()
+
+        if replyText != "" {
+            _, err := bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(replyText)).Do()
             if err != nil {
                 log.Println(err)
                 return
             }
-
-            return
-        }
-
-        // for new visiter
-        textMessage, ok := event.Message.(*linebot.TextMessage)
-        if ok == false {
-            // ignore photo, video, etc messages
-            return
-        }
-
-        // check the message is mac addr or not
-        macAddr, ok := isMacAddr(textMessage.Text)
-        if ok == false {
-            // mac addr not found. err reply
-            message := linebot.NewTextMessage("Macアドレスを入力してください")
-            _, err := bot.ReplyMessage(event.ReplyToken, message).Do()
-            if err != nil {
-                log.Println(err)
-                return
-            }
-            return
-        }
-
-        // check the mac addr is not registered
-        _, err = ctx.FindMac(macAddr)
-        if err == nil {
-            message := linebot.NewTextMessage(fmt.Sprintf("%vはすでに登録されています", macAddr))
-            _, err := bot.ReplyMessage(event.ReplyToken, message).Do()
-            if err != nil {
-                log.Println(err)
-                return
-            }
-            return
-        }
-
-        // register
-
-        // request username
-        res, err := bot.GetProfile(userId).Do()
-        if err != nil {
-            log.Println(err)
-            return
-        }
-
-        // insert new user
-        err = ctx.InsertUser(udb.NewUser(userId, macAddr, res.DisplayName))
-        if err != nil {
-            log.Println(err)
-            return
-        }
-
-        // insert succeeded
-        message := linebot.NewTextMessage(fmt.Sprintf("%vさんの登録が完了しました", res.DisplayName))
-        _, err = bot.ReplyMessage(event.ReplyToken, message).Do()
-        if err != nil {
-            log.Println(err)
-            return
         }
     }
 }
 
-func isMacAddr(message string) (string, bool) {
+func getMacAddr(message string) (string, bool) {
 
     macRegex := regexp.MustCompile(`^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$`)
     macResult := macRegex.FindString(message)
@@ -314,24 +280,6 @@ func isMacAddr(message string) (string, bool) {
     return macResult, true
 }
 
-func registeredUserNames(leases lease.Leases) string {
-
-    ctx := udb.GetContext()
-    defer ctx.Close()
-
-    var ret = ""
-    for _, l := range leases {
-        user, _ := ctx.FindMac(l.Mac)
-        if user == nil {
-            continue
-        }
-
-        ret += fmt.Sprintln(user.Name)
-    }
-
-    return ret
-}
-
 func getRunPath() string {
     dir, err := os.Executable()
     if err != nil {
@@ -340,7 +288,7 @@ func getRunPath() string {
     }
 
     // for `$go run ~~` support
-    if strings.HasPrefix(dir, "/var") || strings.HasPrefix(dir, "/tmp")  {
+    if strings.HasPrefix(dir, "/var") || strings.HasPrefix(dir, "/tmp") {
         return ""
     }
 
