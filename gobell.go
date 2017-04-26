@@ -145,10 +145,11 @@ func watchEventHandler(op fsnotify.Op, filePath string) {
     bot := line.GetBotClient()
 
     // notify came members for all
+    const layout = "15:04"
     if len(cameUsers) > 0 {
         cameMes := ""
         for _, u := range cameUsers {
-            cameMes += fmt.Sprintf("%vさん\n", u.Name)
+            cameMes += fmt.Sprintf("%vさん(%v)\n", u.Name, u.LastAppear.Format(layout))
         }
         cameMes += "が来ました"
 
@@ -163,7 +164,7 @@ func watchEventHandler(op fsnotify.Op, filePath string) {
     if len(leftUsers) > 0 {
         leftMes := ""
         for _, u := range leftUsers {
-            leftMes += fmt.Sprintf("%vさん\n", u.Name)
+            leftMes += fmt.Sprintf("%vさん(%v)\n", u.Name, u.LastAppear.Format(layout))
         }
         leftMes += "がいなくなりました"
 

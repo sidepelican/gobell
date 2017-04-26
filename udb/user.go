@@ -13,7 +13,7 @@ type User struct {
 
 type Users []User
 
-func (users Users)Contains(userId string) bool {
+func (users Users) Contains(userId string) bool {
     for _, u := range users {
         if u.UserId == userId {
             return true
@@ -22,9 +22,9 @@ func (users Users)Contains(userId string) bool {
     return false
 }
 
-func (base Users)Difference(minus Users) Users {
+func (users Users) Difference(minus Users) Users {
     ret := Users{}
-    for _, u := range base {
+    for _, u := range users {
         if minus.Contains(u.UserId) == false {
             ret = append(ret, u)
         }
