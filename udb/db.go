@@ -12,20 +12,38 @@ import (
 )
 
 var dbPath = "users.db"
+
 func getDBPath() string {
     return getRunPath() + dbPath
 }
 
 type DBContext struct {
-    db *sql.DB
+    db        *sql.DB
+    reference int
 }
 
+var currentContext *DBContext
+
 func GetContext() *DBContext {
-    return &DBContext{getDB()}
+
+    if currentContext != nil {
+        currentContext.reference += 1
+        return currentContext
+    }
+
+    currentContext = new(DBContext)
+    currentContext.db = getDB()
+    currentContext.reference = 1
+
+    return currentContext
 }
 
 func (ctx *DBContext) Close() {
-    ctx.db.Close()
+    ctx.reference -= 1
+
+    if ctx.reference <= 0 {
+        ctx.db.Close()
+    }
 }
 
 func (ctx *DBContext) AllUserId() ([]string, error) {
