@@ -43,6 +43,10 @@ func (ctx *DBContext) Close() {
 
     if ctx.reference <= 0 {
         ctx.db.Close()
+
+        if ctx == currentContext {
+            currentContext = nil
+        }
     }
 }
 
