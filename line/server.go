@@ -14,16 +14,6 @@ import (
     "github.com/line/line-bot-sdk-go/linebot"
 )
 
-func StartLineBotServer() {
-
-    log.Println("starting linebot server")
-    http.HandleFunc("/", HttpHandler)
-    if err := http.ListenAndServe(":8080", nil); err != nil {
-        log.Fatal("ListenAndServe: ", err)
-        return
-    }
-}
-
 func HttpHandler(w http.ResponseWriter, r *http.Request) {
 
     bot := GetBotClient()
@@ -84,6 +74,11 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
             _, err := ctx.FindUser(userId)
             if err == nil {
                 // reply currentUsers
+
+                if len(udb.CurrentUsers) == 0 {
+                    return "誰もいないか、何かがおかしいようです"
+                }
+
                 const layout = "15:04"
                 var text = ""
                 for _, u := range udb.CurrentUsers {

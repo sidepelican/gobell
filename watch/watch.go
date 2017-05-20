@@ -3,6 +3,7 @@ package watch
 import (
     "sort"
     "log"
+    "path"
     "path/filepath"
     "time"
 
@@ -14,19 +15,19 @@ import (
     "github.com/go-fsnotify/fsnotify"
 )
 
-func StartFileWatcher(watchPath string) {
+func StartFileWatcher() error {
 
+    // watcher setup
     watcher, err := fsnotify.NewWatcher()
     if err != nil {
-        log.Println(err)
-        return
+        return err
     }
     defer watcher.Close()
 
+    watchPath, _ := path.Split(config.LeasePath())
     err = watcher.Add(watchPath)
     if err != nil {
-        log.Println(err)
-        return
+        return err
     }
 
     absPath, err := filepath.Abs(watchPath)
@@ -43,6 +44,8 @@ func StartFileWatcher(watchPath string) {
             log.Println("watcher error:", err)
         }
     }
+
+    return nil
 }
 
 func watchEventHandler(op fsnotify.Op, filePath string) {
@@ -55,7 +58,9 @@ func watchEventHandler(op fsnotify.Op, filePath string) {
     }
 
     // wait a minute to sum sequentially events
-    time.Sleep(1 * time.Minute)
+    if len(udb.CurrentUsers) > 0 {
+        time.Sleep(1 * time.Minute)
+    }
 
     ctx := udb.GetContext()
     defer ctx.Close()

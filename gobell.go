@@ -3,7 +3,6 @@ package main
 import (
     "sync"
     "log"
-    "path"
     "github.com/sidepelican/gobell/line"
     "github.com/sidepelican/gobell/config"
     "github.com/sidepelican/gobell/watch"
@@ -26,8 +25,9 @@ func main() {
 
     // start file watching
     go func() {
-        leaseDir, _ := path.Split(config.LeasePath())
-        watch.StartFileWatcher(leaseDir)
+        if err := watch.StartFileWatcher(); err != nil {
+            log.Println("Watcher:", err)
+        }
         wg.Done()
     }()
 
@@ -45,7 +45,6 @@ func main() {
         if err := srv.ListenAndServe(); err != nil {
             log.Println("ListenAndServe: ", err)
         }
-
         wg.Done()
     }()
 
