@@ -27,3 +27,15 @@ func TrimMacAddr(s string) string {
     ret = strings.Replace(ret,`-`, `:`, -1)
     return ret
 }
+
+func (u Leases) Len() int {
+    return len(u)
+}
+
+func (u Leases) Swap(i, j int) {
+    u[i], u[j] = u[j], u[i]
+}
+
+func (u Leases) Less(i, j int) bool {
+    return u[i].Ip < u[j].Ip
+}

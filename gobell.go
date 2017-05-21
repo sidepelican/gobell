@@ -5,6 +5,7 @@ import (
     "log"
     "net/http"
     "encoding/json"
+    "sort"
 
     "github.com/sidepelican/gobell/line"
     "github.com/sidepelican/gobell/config"
@@ -63,6 +64,8 @@ func listHandler(w http.ResponseWriter, r *http.Request) {
         log.Println(err)
         return
     }
+
+    sort.Sort(leases)
 
     bytes, err := json.Marshal(leases)
     if err != nil {
