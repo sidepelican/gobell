@@ -3,12 +3,15 @@ package main
 import (
     "sync"
     "log"
+    "net/http"
+    "encoding/json"
+
     "github.com/sidepelican/gobell/line"
     "github.com/sidepelican/gobell/config"
     "github.com/sidepelican/gobell/watch"
+    "github.com/sidepelican/gobell/lease"
 
     "github.com/gorilla/mux"
-    "net/http"
 )
 
 func main() {
@@ -35,6 +38,7 @@ func main() {
     go func() {
         r := mux.NewRouter()
         r.HandleFunc("/line", line.HttpHandler)
+        r.HandleFunc("/list", listHandler)
 
         srv := &http.Server{
             Addr:    ":8080",
@@ -49,4 +53,23 @@ func main() {
     }()
 
     wg.Wait()
+}
+
+func listHandler(w http.ResponseWriter, r *http.Request) {
+
+    // load lease file
+    leases, err := lease.Parse(config.LeasePath())
+    if err != nil {
+        log.Println(err)
+        return
+    }
+
+    bytes, err := json.Marshal(leases)
+    if err != nil {
+        log.Println(err)
+        return
+    }
+
+    w.WriteHeader(http.StatusOK)
+    w.Write(bytes)
 }
