@@ -11,6 +11,7 @@ import (
     "github.com/sidepelican/gobell/config"
     "github.com/sidepelican/gobell/watch"
     "github.com/sidepelican/gobell/lease"
+    "github.com/sidepelican/gobell/udb"
 
     "github.com/gorilla/mux"
 )
@@ -40,6 +41,8 @@ func main() {
         r := mux.NewRouter()
         r.HandleFunc("/line", line.HttpHandler)
         r.HandleFunc("/list", listHandler)
+        user := r.PathPrefix("/user").Subrouter()
+        user.HandleFunc("/list", userListHandler)
 
         srv := &http.Server{
             Addr:    ":8080",
@@ -62,6 +65,7 @@ func listHandler(w http.ResponseWriter, r *http.Request) {
     leases, err := lease.Parse(config.LeasePath())
     if err != nil {
         log.Println(err)
+        w.WriteHeader(http.StatusInternalServerError)
         return
     }
 
@@ -70,6 +74,37 @@ func listHandler(w http.ResponseWriter, r *http.Request) {
     bytes, err := json.Marshal(leases)
     if err != nil {
         log.Println(err)
+        w.WriteHeader(http.StatusInternalServerError)
+        return
+    }
+
+    w.WriteHeader(http.StatusOK)
+    w.Write(bytes)
+}
+
+func userListHandler(w http.ResponseWriter, r *http.Request) {
+
+    ctx := udb.GetContext()
+
+    users, err := ctx.AllUsers()
+    if err != nil {
+        log.Println(err)
+        w.WriteHeader(http.StatusInternalServerError)
+        return
+    }
+
+    if len(users) == 0 {
+        w.WriteHeader(http.StatusOK)
+        w.Write([]byte("{}"))
+        return
+    }
+
+    sort.Sort(users)
+
+    bytes, err := json.Marshal(users)
+    if err != nil {
+        log.Println(err)
+        w.WriteHeader(http.StatusInternalServerError)
         return
     }
 

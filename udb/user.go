@@ -5,10 +5,10 @@ import (
 )
 
 type User struct {
-    UserId     string
-    Mac        string
-    Name       string
-    LastAppear time.Time
+    UserId     string       `json:"user_id"`
+    Mac        string       `json:"mac"`
+    Name       string       `json:"name"`
+    LastAppear time.Time    `json:"last_appear"`
 }
 
 type Users []User

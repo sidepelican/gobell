@@ -71,6 +71,27 @@ func (ctx *DBContext) AllUserId() ([]string, error) {
     return ret, nil
 }
 
+func (ctx *DBContext) AllUsers() (Users, error) {
+
+    rows, err := ctx.db.Query("select * from users")
+    defer rows.Close()
+    if err != nil {
+        return nil, err
+    }
+
+    var ret Users
+    for rows.Next() {
+        var user User
+        err = rows.Scan(&user.UserId, &user.Mac, &user.Name, &user.LastAppear)
+        if err != nil {
+            return nil, err
+        }
+        ret = append(ret, user)
+    }
+
+    return ret, nil
+}
+
 func (ctx *DBContext) FindUser(userId string) (*User, error) {
 
     stmt, err := ctx.db.Prepare("select * from users where user_id=?")
