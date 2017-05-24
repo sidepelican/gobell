@@ -43,6 +43,7 @@ func main() {
         r.HandleFunc("/list", listHandler)
         user := r.PathPrefix("/user").Subrouter()
         user.HandleFunc("/list", userListHandler)
+        user.HandleFunc("/add", userAddHandler)
 
         srv := &http.Server{
             Addr:    ":8080",
@@ -83,9 +84,9 @@ func listHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func userListHandler(w http.ResponseWriter, r *http.Request) {
-
     ctx := udb.GetContext()
-
+    defer ctx.Close()
+    
     users, err := ctx.AllUsers()
     if err != nil {
         log.Println(err)
@@ -110,4 +111,30 @@ func userListHandler(w http.ResponseWriter, r *http.Request) {
 
     w.WriteHeader(http.StatusOK)
     w.Write(bytes)
+}
+
+func userAddHandler(w http.ResponseWriter, r *http.Request) {
+    ctx := udb.GetContext()
+    defer ctx.Close()
+    
+    name := r.FormValue("name")
+    mac := lease.TrimMacAddr(r.FormValue("mac"))
+    
+    if name == "" || mac == "" {
+        w.WriteHeader(http.StatusBadRequest)
+        w.Write([]byte("name or mac address incorrect."))
+        return 
+    }
+
+    user := udb.NewUser(mac, mac, name)
+    err := ctx.InsertUser(user)
+    if err != nil {
+        log.Println(err)
+        w.WriteHeader(http.StatusInternalServerError)
+        w.Write([]byte(err.Error()))
+        return
+    }
+
+    w.WriteHeader(http.StatusOK)
+    w.Write([]byte("Success"))
 }
