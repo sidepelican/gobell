@@ -9,7 +9,6 @@ import (
 
     "github.com/sidepelican/gobell/line"
     "github.com/sidepelican/gobell/config"
-    "github.com/sidepelican/gobell/watch"
     "github.com/sidepelican/gobell/lease"
     "github.com/sidepelican/gobell/udb"
 
@@ -30,7 +29,7 @@ func main() {
 
     // start file watching
     go func() {
-        if err := watch.StartFileWatcher(); err != nil {
+        if err := line.StartFileWatcher(); err != nil {
             log.Println("Watcher:", err)
         }
         wg.Done()

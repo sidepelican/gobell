@@ -1,4 +1,4 @@
-package watch
+package line
 
 import (
     "sort"
@@ -9,11 +9,12 @@ import (
 
     "github.com/sidepelican/gobell/config"
     "github.com/sidepelican/gobell/udb"
-    "github.com/sidepelican/gobell/line"
     "github.com/sidepelican/gobell/lease"
 
     "github.com/go-fsnotify/fsnotify"
 )
+
+var currentUsers udb.Users
 
 func StartFileWatcher() error {
 
@@ -58,7 +59,7 @@ func watchEventHandler(op fsnotify.Op, filePath string) {
     }
 
     // wait a minute to sum sequentially events
-    if len(udb.CurrentUsers) > 0 {
+    if len(currentUsers) > 0 {
         time.Sleep(1 * time.Minute)
     }
 
@@ -88,11 +89,11 @@ func watchEventHandler(op fsnotify.Op, filePath string) {
     }
     sort.Sort(latestUsers)
 
-    cameUsers := latestUsers.Difference(udb.CurrentUsers)
-    leftUsers := udb.CurrentUsers.Difference(latestUsers)
+    cameUsers := latestUsers.Difference(currentUsers)
+    leftUsers := currentUsers.Difference(latestUsers)
 
-    udb.CurrentUsers = latestUsers
+    currentUsers = latestUsers
 
     // notify
-    line.NotifyCameAndLeftUsers(cameUsers, leftUsers)
+    NotifyCameAndLeftUsers(cameUsers, leftUsers)
 }

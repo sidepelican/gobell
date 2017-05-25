@@ -13,8 +13,6 @@ type User struct {
 
 type Users []User
 
-var CurrentUsers Users
-
 func (users Users) Contains(userId string) bool {
     for _, u := range users {
         if u.UserId == userId {

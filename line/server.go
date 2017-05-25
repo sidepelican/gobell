@@ -75,13 +75,13 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
             if err == nil {
                 // reply currentUsers
 
-                if len(udb.CurrentUsers) == 0 {
+                if len(currentUsers) == 0 {
                     return "誰もいないか、何かがおかしいようです"
                 }
 
                 const layout = "15:04"
                 var text = ""
-                for _, u := range udb.CurrentUsers {
+                for _, u := range currentUsers {
                     text += fmt.Sprintf("%v (%v)\n", u.Name, u.LastAppear.Format(layout))
                 }
                 text = strings.TrimRight(text, "\n")

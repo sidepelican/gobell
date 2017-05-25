@@ -2,9 +2,10 @@ package line
 
 import (
     "sync"
-    "github.com/line/line-bot-sdk-go/linebot"
     "log"
     "os"
+
+    "github.com/line/line-bot-sdk-go/linebot"
 )
 
 var once sync.Once
@@ -13,7 +14,6 @@ var bot *linebot.Client
 func GetBotClient() *linebot.Client {
 
     once.Do(func() {
-
         // create bot
         lineToken := os.Getenv("LINE_BOT_TOKEN")
         lineSecret := os.Getenv("LINE_BOT_SECRET")
