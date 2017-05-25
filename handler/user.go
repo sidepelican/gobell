@@ -52,3 +52,25 @@ func UserAddHandler(w http.ResponseWriter, r *http.Request) {
 
     redererer.Text(w, http.StatusOK, "Success")
 }
+
+func UserDeleteHandler(w http.ResponseWriter, r *http.Request) {
+    ctx := udb.GetContext()
+    defer ctx.Close()
+
+    mac := lease.TrimMacAddr(r.FormValue("mac"))
+
+    if mac == "" {
+        mes := "mac address incorrect."
+        redererer.JSON(w, http.StatusBadRequest, NewErrorResponse(http.StatusBadRequest, mes))
+        return
+    }
+
+    err := ctx.EraseUser(mac)
+    if err != nil {
+        log.Println(err)
+        redererer.JSON(w, http.StatusInternalServerError, NewErrorResponse(http.StatusInternalServerError, err.Error()))
+        return
+    }
+
+    redererer.Text(w, http.StatusOK, "Success")
+}
