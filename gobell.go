@@ -10,6 +10,7 @@ import (
     "github.com/sidepelican/gobell/handler"
 
     "github.com/gorilla/mux"
+    "github.com/rs/cors"
 )
 
 func main() {
@@ -45,7 +46,7 @@ func main() {
 
         srv := &http.Server{
             Addr:    ":8080",
-            Handler: r,
+            Handler: cors.Default().Handler(r),
         }
 
         if err := srv.ListenAndServe(); err != nil {
