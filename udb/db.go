@@ -159,6 +159,16 @@ func (ctx *DBContext) InsertUser(user User) error {
 
 func (ctx *DBContext) UpdateLastAppear(userId string, appear time.Time) error {
 
+    // check need to update
+    user, err := ctx.FindUser(userId)
+    if err != nil {
+        return err
+    }
+
+    if user.LastAppear.After(appear) {
+        return nil
+    }
+
     stmt, err := ctx.db.Prepare("update users set last_appear=? where user_id=?")
     if err != nil {
         return err

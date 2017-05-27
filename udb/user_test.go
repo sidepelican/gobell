@@ -53,7 +53,7 @@ func TestFind(t *testing.T) {
         testUser.Mac != found.Mac ||
         testUser.Name != found.Name ||
         !testUser.LastAppear.Equal(found.LastAppear) {
-        t.Errorf("found user failed.\n expected: %v\n actual: %v\n",testUser, found)
+        t.Errorf("found user failed.\n expected: %v\n actual: %v\n", testUser, found)
     }
 
     // mac
@@ -67,7 +67,7 @@ func TestFind(t *testing.T) {
         testUser.Mac != found.Mac ||
         testUser.Name != found.Name ||
         !testUser.LastAppear.Equal(found.LastAppear) {
-        t.Errorf("found user failed.\n expected: %v\n actual: %v\n",testUser, found)
+        t.Errorf("found user failed.\n expected: %v\n actual: %v\n", testUser, found)
     }
 
     // mac uppercase
@@ -81,7 +81,7 @@ func TestFind(t *testing.T) {
         testUser.Mac != found.Mac ||
         testUser.Name != found.Name ||
         !testUser.LastAppear.Equal(found.LastAppear) {
-        t.Errorf("found user failed.\n expected: %v\n actual: %v\n",testUser, found)
+        t.Errorf("found user failed.\n expected: %v\n actual: %v\n", testUser, found)
     }
 }
 
@@ -90,10 +90,39 @@ func TestUpdate(t *testing.T) {
     var userCopy = testUser
 
     // update
-    userCopy.LastAppear = userCopy.LastAppear.Add(60)
+    userCopy.LastAppear = testUser.LastAppear.Add(60)
     err := ctx.UpdateLastAppear(userCopy.UserId, userCopy.LastAppear)
     if err != nil {
         t.Errorf("update err: %v", err)
+    }
+
+    updated, err := ctx.FindUser(userCopy.UserId)
+    if err != nil {
+        t.Errorf("update err: %v", err)
+    }
+    if updated.LastAppear.Before(userCopy.LastAppear) {
+        t.Errorf("update err: time update failed")
+    }
+
+    // update
+    userCopy.LastAppear = testUser.LastAppear.Add(-1)
+    err = ctx.UpdateLastAppear(userCopy.UserId, userCopy.LastAppear)
+    if err != nil {
+        t.Errorf("update err: %v", err)
+    }
+
+    updated, err = ctx.FindUser(userCopy.UserId)
+    if err != nil {
+        t.Errorf("update err: %v", err)
+    }
+    if updated.LastAppear.Before(userCopy.LastAppear) {
+        t.Errorf("update err: time update failed")
+    }
+
+    // update unknown user
+    err = ctx.UpdateLastAppear("unknown userid", userCopy.LastAppear)
+    if err == nil {
+        t.Errorf("update err: unknown userid")
     }
 }
 
