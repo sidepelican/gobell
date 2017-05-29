@@ -32,7 +32,6 @@ func Parse(path string) (Leases, error) {
     rStarts := regexp.MustCompile(`starts ([0-9]) (.*);`)
     rHwEth := regexp.MustCompile(`hardware ethernet ([0-9A-Fa-f:-]+);`)
     rHostname := regexp.MustCompile(`client-hostname "(.*)";`)
-    rEnd := regexp.MustCompile(`}`)
 
     lf := newLeaseFinder()
 
@@ -40,13 +39,13 @@ func Parse(path string) (Leases, error) {
     reader := bufio.NewReaderSize(fp, 4096)
     for {
         lineBuf, _, err := reader.ReadLine()
-        line := string(lineBuf)
-
         if err == io.EOF {
             break
         } else if err != nil {
             return nil, err
         }
+
+        line := string(lineBuf)
 
         // try each regexp
         var res []string = nil
@@ -66,7 +65,7 @@ func Parse(path string) (Leases, error) {
         if res != nil {
             lf.FindHostname(res[len(res)-1])
         }
-        if rEnd.MatchString(line) {
+        if line == `}` {
             lf.FindEnd()
         }
     }

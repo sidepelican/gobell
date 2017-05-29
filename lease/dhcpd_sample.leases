@@ -416,7 +416,7 @@ lease 192.168.11.209 {
   cltt 4 2017/02/16 10:30:56;
   binding state free;
   hardware ethernet 60:57:18:19:0f:37;
-  uid "\001`W\030\031\0177";
+  uid "\001xOC\222\277}";
   client-hostname "numaolab";
 }
 lease 192.168.11.138 {
