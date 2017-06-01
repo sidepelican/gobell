@@ -61,15 +61,19 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func removeDuplicate(users udb.Users) udb.Users {
-    len := len(users)
-    results := make(udb.Users, 0, len)
+
     encountered := map[string]udb.User{}
-    for i := 0; i < len; i++ {
-        encount, ok := encountered[users[i].Name]
-        if ok == false || encount.LastAppear.Before(users[i].LastAppear) {
-            encountered[users[i].Name] = users[i]
-            results = append(results, users[i])
+    for _, u := range users {
+        encount, ok := encountered[u.Name]
+        if ok == false || encount.LastAppear.Before(u.LastAppear) {
+            encountered[u.Name] = u
         }
     }
+
+    results := make(udb.Users, 0, len(encountered))
+    for _, u := range encountered {
+        results = append(results, u)
+    }
+
     return results
 }
