@@ -52,7 +52,7 @@ func UserAddHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    redererer.Text(w, http.StatusOK, "Success")
+    redererer.JSON(w, http.StatusOK, NewSuccessResponse())
 }
 
 func UserDeleteHandler(w http.ResponseWriter, r *http.Request) {
@@ -74,5 +74,5 @@ func UserDeleteHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    redererer.Text(w, http.StatusOK, "Success")
+    redererer.JSON(w, http.StatusOK, NewSuccessResponse())
 }

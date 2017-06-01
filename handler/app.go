@@ -9,17 +9,25 @@ import (
 )
 
 const TimeOutLimit = 30 * time.Second
+
 var redererer = render.New(render.Options{IndentJSON: true})
 
-type ErrorResponse struct {
+type CommonResponse struct {
     Status  int    `json:"status"`
     Message string `json:"message"`
 }
 
-func NewErrorResponse(status int, message string) ErrorResponse {
-    return ErrorResponse{
+func NewErrorResponse(status int, message string) CommonResponse {
+    return CommonResponse{
         Status:  status,
         Message: message,
+    }
+}
+
+func NewSuccessResponse() CommonResponse {
+    return CommonResponse{
+        Status:  http.StatusOK,
+        Message: "success!",
     }
 }
 
