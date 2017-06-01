@@ -8,6 +8,7 @@ type User struct {
     UserId     string       `json:"user_id"`
     Mac        string       `json:"mac"`
     Name       string       `json:"name"`
+    Note       string       `json:"note"`
     LastAppear time.Time    `json:"last_appear"`
 }
 
@@ -37,6 +38,7 @@ func NewUser(userId string, mac string, name string) User {
         UserId:     userId,
         Mac:        mac,
         Name:       name,
+        Note:       "",
         LastAppear: time.Now(),
     }
 }

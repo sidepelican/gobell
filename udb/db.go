@@ -81,8 +81,7 @@ func (ctx *DBContext) AllUsers() (Users, error) {
 
     var ret Users
     for rows.Next() {
-        var user User
-        err = rows.Scan(&user.UserId, &user.Mac, &user.Name, &user.LastAppear)
+        user, err := scanUser(rows)
         if err != nil {
             return nil, err
         }
@@ -106,12 +105,11 @@ func (ctx *DBContext) FindUser(userId string) (*User, error) {
     }
 
     for rows.Next() {
-        user := new(User)
-        err = rows.Scan(&user.UserId, &user.Mac, &user.Name, &user.LastAppear)
+        user, err := scanUser(rows)
         if err != nil {
             return nil, err
         }
-        return user, nil
+        return &user, nil
     }
 
     return nil, fmt.Errorf("userid: %v is not found", userId)
@@ -131,8 +129,7 @@ func (ctx *DBContext) FindMac(mac string) (*User, error) {
     }
 
     for rows.Next() {
-        var user User
-        err = rows.Scan(&user.UserId, &user.Mac, &user.Name, &user.LastAppear)
+        user, err := scanUser(rows)
         if err != nil {
             return nil, err
         }
@@ -144,12 +141,12 @@ func (ctx *DBContext) FindMac(mac string) (*User, error) {
 
 func (ctx *DBContext) InsertUser(user User) error {
 
-    stmt, err := ctx.db.Prepare("insert into users(user_id, mac, name, last_appear) values(?,?,?,?)")
+    stmt, err := ctx.db.Prepare("insert into users(user_id, mac, name, note, last_appear) values(?,?,?,?,?)")
     if err != nil {
         return err
     }
 
-    _, err = stmt.Exec(user.UserId, user.Mac, user.Name, user.LastAppear)
+    _, err = stmt.Exec(user.UserId, user.Mac, user.Name, user.Note, user.LastAppear)
     if err != nil {
         return err
     }
@@ -197,6 +194,11 @@ func (ctx *DBContext) EraseUser(userId string) error {
     return nil
 }
 
+func scanUser(rows *sql.Rows) (user User, err error){
+    err = rows.Scan(&user.UserId, &user.Mac, &user.Name, &user.Note, &user.LastAppear)
+    return
+}
+
 func getDB() *sql.DB {
     needInit := !exists(getDBPath())
     if needInit {
@@ -219,6 +221,7 @@ func getDB() *sql.DB {
          user_id     VARCHAR(255) PRIMARY KEY,
          mac         VARCHAR(255) NOT NULL,
          name        VARCHAR(255) NOT NULL,
+         note        NVARCHAR(255),
          last_appear TIMESTAMP DEFAULT (DATETIME('now','localtime'))
         )`
 

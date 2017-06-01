@@ -35,6 +35,7 @@ func UserAddHandler(w http.ResponseWriter, r *http.Request) {
 
     name := r.FormValue("name")
     mac := lease.TrimMacAddr(r.FormValue("mac"))
+    note := r.FormValue("note")
 
     if name == "" || mac == "" {
         mes := "name or mac address incorrect."
@@ -43,6 +44,7 @@ func UserAddHandler(w http.ResponseWriter, r *http.Request) {
     }
 
     user := udb.NewUser(mac, mac, name)
+    user.Note = note
     err := ctx.InsertUser(user)
     if err != nil {
         log.Println(err)

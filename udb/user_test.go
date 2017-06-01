@@ -11,6 +11,7 @@ var testUser = User{
     UserId:     "0123456789",
     Mac:        "aa:bb:cc:00:22:44",
     Name:       "TestMan",
+    Note:       "test note 🥓 test 😀",
     LastAppear: time.Now(),
 }
 
