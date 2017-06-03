@@ -102,30 +102,31 @@ func lineEventHandler(bot *linebot.Client, event *linebot.Event) {
                 return "Macアドレスを入力してください"
             }
 
-            // check the mac addr is not registered
-            _, err = ctx.FindMac(macAddr)
-            if err == nil {
-                return fmt.Sprintf("%vはすでに登録されています", macAddr)
-            }
-
             // register
 
-            // request username
-            res, err := bot.GetProfile(userId).Do()
-            if err != nil {
-                log.Println(err)
-                return err.Error()
+            // find username
+            var uname = ""
+            if u, _ := ctx.FindMac(macAddr); u != nil {
+                uname = u.Name
+            } else {
+                // username from line profile
+                res, err := bot.GetProfile(userId).Do()
+                if err != nil {
+                    log.Println(err)
+                    return err.Error()
+                }
+                uname = res.DisplayName
             }
 
             // insert new user
-            err = ctx.InsertUser(udb.NewUser(userId, macAddr, res.DisplayName))
+            err = ctx.InsertUser(udb.NewUser(userId, macAddr, uname))
             if err != nil {
                 log.Println(err)
                 return err.Error()
             }
 
             // insert succeeded
-            return fmt.Sprintf("%vさんの登録が完了しました", res.DisplayName)
+            return fmt.Sprintf("%vさんの登録が完了しました", uname)
         }()
 
         if replyText != "" {
