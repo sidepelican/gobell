@@ -122,8 +122,8 @@ func TestUpdate(t *testing.T) {
 
     // update unknown user
     err = ctx.UpdateLastAppear("unknown userid", userCopy.LastAppear)
-    if err == nil {
-        t.Errorf("update err: unknown userid")
+    if err != nil {
+        t.Errorf("update err: %v", err)
     }
 }
 
