@@ -42,7 +42,7 @@ func main() {
         user := r.PathPrefix("/user").Subrouter()
         user.HandleFunc("/list", handler.UserListHandler)
         user.HandleFunc("/add", handler.UserAddHandler).Methods(http.MethodPost)
-        user.HandleFunc("/delete", handler.UserDeleteHandler).Methods(http.MethodDelete)
+        user.HandleFunc("/delete", handler.UserDeleteHandler).Methods(http.MethodPost)
 
         srv := &http.Server{
             Addr:    ":8080",
