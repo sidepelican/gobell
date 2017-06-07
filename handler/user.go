@@ -59,19 +59,27 @@ func UserDeleteHandler(w http.ResponseWriter, r *http.Request) {
     ctx := udb.GetContext()
     defer ctx.Close()
 
-    mac := lease.TrimMacAddr(r.FormValue("mac"))
-
-    if mac == "" {
-        mes := "mac address incorrect."
+    err := r.ParseForm()
+    if err != nil {
+        mes := "failed to parse form: " + err.Error()
         redererer.JSON(w, http.StatusBadRequest, NewErrorResponse(http.StatusBadRequest, mes))
         return
     }
 
-    err := ctx.EraseUser(mac)
-    if err != nil {
-        log.Println(err)
-        redererer.JSON(w, http.StatusInternalServerError, NewErrorResponse(http.StatusInternalServerError, err.Error()))
+    ids := r.PostForm["user_ids[]"]
+    if len(ids) == 0 {
+        mes := "userId not found."
+        redererer.JSON(w, http.StatusBadRequest, NewErrorResponse(http.StatusBadRequest, mes))
         return
+    }
+
+    for _, userId := range ids {
+        err := ctx.EraseUser(userId)
+        if err != nil {
+            log.Println(err)
+            redererer.JSON(w, http.StatusInternalServerError, NewErrorResponse(http.StatusInternalServerError, err.Error()))
+            return
+        }
     }
 
     redererer.JSON(w, http.StatusOK, NewSuccessResponse())
