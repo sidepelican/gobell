@@ -160,9 +160,7 @@ func NotifyCameAndLeftUsers(cameUsers udb.Users, leftUsers udb.Users) error {
         cameMes += "が来ました"
 
         for _, userId := range allUserId {
-            if _, err := bot.PushMessage(userId, linebot.NewTextMessage(cameMes)).Do(); err != nil {
-                log.Println(err)
-            }
+            bot.PushMessage(userId, linebot.NewTextMessage(cameMes)).Do()
         }
     }
 
