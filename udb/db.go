@@ -169,6 +169,21 @@ func (ctx *DBContext) UpdateLastAppear(userId string, appear time.Time) error {
     return nil
 }
 
+func (ctx *DBContext) UpdateNote(userId string, note string) error {
+
+    stmt, err := ctx.db.Prepare("update users set note=? where user_id=?")
+    if err != nil {
+        return err
+    }
+
+    _, err = stmt.Exec(note, userId)
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
+
 func (ctx *DBContext) EraseUser(userId string) error {
 
     stmt, err := ctx.db.Prepare("delete from users where user_id=?")

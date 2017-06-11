@@ -86,7 +86,7 @@ func TestFind(t *testing.T) {
     }
 }
 
-func TestUpdate(t *testing.T) {
+func TestUpdateLastAppear(t *testing.T) {
 
     var userCopy = testUser
 
@@ -124,6 +124,25 @@ func TestUpdate(t *testing.T) {
     err = ctx.UpdateLastAppear("unknown userid", userCopy.LastAppear)
     if err != nil {
         t.Errorf("update err: %v", err)
+    }
+}
+
+func TestUpdateNote(t *testing.T) {
+
+    orgNote := testUser.Note
+
+    err := ctx.UpdateNote(testUser.UserId, "updated note")
+    if err != nil {
+        t.Errorf("updateNote err: %v", err)
+    }
+
+    updated, err := ctx.FindUser(testUser.UserId)
+    if err != nil {
+        t.Errorf("updateNote err: %v", err)
+    }
+
+    if updated.Note == orgNote {
+        t.Errorf("updateNote err: note is not updated")
     }
 }
 

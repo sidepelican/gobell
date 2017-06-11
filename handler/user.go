@@ -30,9 +30,6 @@ func UserListHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserAddHandler(w http.ResponseWriter, r *http.Request) {
-    ctx := udb.GetContext()
-    defer ctx.Close()
-
     name := r.FormValue("name")
     mac := lease.TrimMacAddr(r.FormValue("mac"))
     note := r.FormValue("note")
@@ -42,6 +39,9 @@ func UserAddHandler(w http.ResponseWriter, r *http.Request) {
         redererer.JSON(w, http.StatusBadRequest, NewErrorResponse(http.StatusBadRequest, mes))
         return
     }
+
+    ctx := udb.GetContext()
+    defer ctx.Close()
 
     user := udb.NewUser(mac, mac, name)
     user.Note = note
@@ -56,9 +56,6 @@ func UserAddHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserDeleteHandler(w http.ResponseWriter, r *http.Request) {
-    ctx := udb.GetContext()
-    defer ctx.Close()
-
     err := r.ParseForm()
     if err != nil {
         mes := "failed to parse form: " + err.Error()
@@ -73,6 +70,9 @@ func UserDeleteHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
 
+    ctx := udb.GetContext()
+    defer ctx.Close()
+
     for _, userId := range ids {
         err := ctx.EraseUser(userId)
         if err != nil {
@@ -80,6 +80,22 @@ func UserDeleteHandler(w http.ResponseWriter, r *http.Request) {
             redererer.JSON(w, http.StatusInternalServerError, NewErrorResponse(http.StatusInternalServerError, err.Error()))
             return
         }
+    }
+
+    redererer.JSON(w, http.StatusOK, NewSuccessResponse())
+}
+
+func EditNoteHandler(w http.ResponseWriter, r *http.Request) {
+    userId := r.FormValue("user_id")
+    note := r.FormValue("note")
+
+    ctx := udb.GetContext()
+    defer ctx.Close()
+
+    err := ctx.UpdateNote(userId, note)
+    if err != nil {
+        log.Println(err)
+        redererer.JSON(w, http.StatusInternalServerError, NewErrorResponse(http.StatusInternalServerError, err.Error()))
     }
 
     redererer.JSON(w, http.StatusOK, NewSuccessResponse())
