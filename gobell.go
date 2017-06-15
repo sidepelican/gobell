@@ -48,7 +48,9 @@ func main() {
 
         srv := &http.Server{
             Addr:    ":8080",
-            Handler: cors.Default().Handler(r),
+            Handler: cors.New(cors.Options{
+                AllowedHeaders: []string{"Authorization"},
+            }).Handler(r),
         }
 
         if err := srv.ListenAndServe(); err != nil {
