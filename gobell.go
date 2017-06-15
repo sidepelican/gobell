@@ -37,13 +37,14 @@ func main() {
     go func() {
         r := mux.NewRouter()
         r.HandleFunc("/line", line.HttpHandler)
-        r.HandleFunc("/list", handler.ListHandler)
-        r.HandleFunc("/users", handler.UsersHandler)
+        r.Handle("/list", &handler.AuthHandler{handler.ListHandler}).Methods(http.MethodGet)
+        r.Handle("/users", &handler.AuthHandler{handler.UsersHandler}).Methods(http.MethodGet)
+        r.HandleFunc("/login", handler.LoginHandler).Methods(http.MethodPost)
         user := r.PathPrefix("/user").Subrouter()
-        user.HandleFunc("/list", handler.UserListHandler)
-        user.HandleFunc("/add", handler.UserAddHandler).Methods(http.MethodPost)
-        user.HandleFunc("/delete", handler.UserDeleteHandler).Methods(http.MethodPost)
-        user.HandleFunc("/note", handler.EditNoteHandler).Methods(http.MethodPost)
+        user.Handle("/list", &handler.AuthHandler{handler.UserListHandler}).Methods(http.MethodGet)
+        user.Handle("/add", &handler.AuthHandler{handler.UserAddHandler}).Methods(http.MethodPost)
+        user.Handle("/delete", &handler.AuthHandler{handler.UserDeleteHandler}).Methods(http.MethodPost)
+        user.Handle("/note", &handler.AuthHandler{handler.EditNoteHandler}).Methods(http.MethodPost)
 
         srv := &http.Server{
             Addr:    ":8080",
