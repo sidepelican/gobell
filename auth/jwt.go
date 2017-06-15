@@ -8,6 +8,7 @@ import (
 )
 
 var secret = []byte("test_secret")
+const loginSessionTimeOut = time.Hour * 24 * 7
 
 type authInfo struct {
     jwt.StandardClaims
@@ -40,6 +41,10 @@ func Validate(tokenString string) (string, error) {
     }
     if !token.Valid {
         return "", errors.New("token.Valid is false. something wrong.")
+    }
+
+    if time.Since(info.Time) > loginSessionTimeOut {
+        return "", errors.New("long time passed from the last Login. request renew token.")
     }
 
     return info.Name, nil
