@@ -36,24 +36,68 @@ func TestAuthFail(t *testing.T) {
 }
 
 func TestTimeout(t *testing.T) {
+    orgTimeFunc := jwt.TimeFunc
+    defer func() {
+        jwt.TimeFunc = orgTimeFunc
+    }()
+
+    jwt.TimeFunc = func() (time.Time) {
+        return time.Now().Add(- time.Hour * 24 * 30)
+    }
 
     tokenString, err := Auth("admin", "admin")
     if err != nil {
         t.Fatal(err)
     }
 
-    orgTimeFunc := jwt.TimeFunc
-    jwt.TimeFunc = func() (time.Time) {
-        return time.Now().Add(time.Hour * 24 * 30)
-    }
+    jwt.TimeFunc = time.Now
 
     info, err := Validate(tokenString)
-    t.Log(time.Unix(info.ExpiresAt, 0))
-    t.Log(jwt.TimeFunc())
+    t.Log("tokenExpiresAt:", time.Unix(info.ExpiresAt, 0))
+    t.Log("serverTime:", jwt.TimeFunc())
 
     if err == nil {
         t.Fatal("timeout error not handled")
     }
+}
 
-    jwt.TimeFunc = orgTimeFunc
+func TestUpdateExpires(t *testing.T) {
+    orgTimeFunc := jwt.TimeFunc
+    defer func() {
+        jwt.TimeFunc = orgTimeFunc
+    }()
+
+    // yesterday created token.
+    jwt.TimeFunc = func() (time.Time) {
+        return time.Now().Add(- time.Hour * 24)
+    }
+
+    tokenString, err := Auth("admin", "admin")
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    prevInfo, err := Validate(tokenString)
+    if err != nil {
+        t.Fatal("timeout error not handled")
+    }
+
+    // time is now
+    jwt.TimeFunc = time.Now
+    tokenString, err = UpdateExpires(tokenString)
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    nowInfo, err := Validate(tokenString)
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    // check
+    if nowInfo.ExpiresAt < prevInfo.ExpiresAt {
+        t.Log("prevExpiresAt:", time.Unix(prevInfo.ExpiresAt, 0))
+        t.Log("nowExpiresAt:", time.Unix(nowInfo.ExpiresAt, 0))
+        t.Fatal("failed to update Expiresat")
+    }
 }

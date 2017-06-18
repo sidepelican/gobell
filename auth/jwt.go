@@ -9,7 +9,10 @@ import (
 
 var secret = []byte("test_secret")
 
-const loginSessionTimeOut = time.Hour * 24 * 7
+func generateNewExpiredTime() time.Time {
+    const loginSessionTimeOut = time.Hour * 24 * 7
+    return jwt.TimeFunc().Add(loginSessionTimeOut)
+}
 
 type AuthInfo struct {
     jwt.StandardClaims
@@ -21,7 +24,7 @@ func Auth(name string, pass string) (string, error) {
     if name == "admin" && pass == "admin" {
         token := jwt.NewWithClaims(jwt.SigningMethodHS256, AuthInfo{
             jwt.StandardClaims{
-                ExpiresAt: time.Now().Add(loginSessionTimeOut).Unix(),
+                ExpiresAt: generateNewExpiredTime().Unix(),
             },
             name,
         })
@@ -48,4 +51,17 @@ func Validate(tokenString string) (info AuthInfo, err error) {
     }
 
     return
+}
+
+func UpdateExpires(tokenString string) (string, error) {
+
+    info, err := Validate(tokenString)
+    if err != nil {
+        return "", err
+    }
+
+    info.ExpiresAt = generateNewExpiredTime().Unix()
+
+    token := jwt.NewWithClaims(jwt.SigningMethodHS256, info)
+    return token.SignedString(secret)
 }
