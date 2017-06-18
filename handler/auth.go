@@ -29,7 +29,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
     token, err := auth.Auth(name, pass)
     if err != nil {
-        redererer.JSON(w, http.StatusNotAcceptable, NewErrorResponse(http.StatusNotAcceptable, "Authorization failed!"))
+        message := "Authorization failed! Reason: " + err.Error()
+        redererer.JSON(w, http.StatusNotAcceptable, NewErrorResponse(http.StatusNotAcceptable, message))
         return
     }
 
