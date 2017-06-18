@@ -8,6 +8,7 @@ import (
 )
 
 var secret = []byte("test_secret")
+
 const loginSessionTimeOut = time.Hour * 24 * 7
 
 type AuthInfo struct {
@@ -19,7 +20,7 @@ func Auth(name string, pass string) (string, error) {
 
     if name == "admin" && pass == "admin" {
         token := jwt.NewWithClaims(jwt.SigningMethodHS256, AuthInfo{
-            jwt.StandardClaims {
+            jwt.StandardClaims{
                 ExpiresAt: time.Now().Add(loginSessionTimeOut).Unix(),
             },
             name,
@@ -33,7 +34,10 @@ func Auth(name string, pass string) (string, error) {
 
 func Validate(tokenString string) (info AuthInfo, err error) {
 
-    _, err = jwt.ParseWithClaims(tokenString, &info, func(token *jwt.Token) (interface{}, error){
+    _, err = jwt.ParseWithClaims(tokenString, &info, func(token *jwt.Token) (interface{}, error) {
+        if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+            return nil, errors.New("Unexpected siging method")
+        }
         return secret, nil
     })
     if err != nil {
