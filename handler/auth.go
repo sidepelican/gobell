@@ -24,6 +24,18 @@ func (h *AuthHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
+    // if already have a token, update it and return.
+    if authToken := r.Header.Get("Authorization"); authToken != "" {
+        newToken, err := auth.UpdateExpires(authToken)
+        if err == nil {
+            redererer.JSON(w, http.StatusOK, CommonResponse{
+                Status:  http.StatusOK,
+                Message: newToken,
+            })
+            return
+        }
+    }
+
     name := r.FormValue("name")
     pass := r.FormValue("pass")
 
