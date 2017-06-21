@@ -21,7 +21,7 @@ type AuthInfo struct {
 
 func Auth(name string, pass string) (string, error) {
 
-    if name == "admin" && pass == "admin" {
+    if ok := passwordCheck(name, pass); ok {
         token := jwt.NewWithClaims(jwt.SigningMethodHS256, AuthInfo{
             jwt.StandardClaims{
                 ExpiresAt: generateNewExpiredTime().Unix(),
