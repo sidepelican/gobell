@@ -8,6 +8,7 @@ import (
     "github.com/sidepelican/gobell/config"
     "github.com/sidepelican/gobell/lease"
     "github.com/sidepelican/gobell/udb"
+    "github.com/sidepelican/gobell/line"
 )
 
 func ListHandler(w http.ResponseWriter, r *http.Request) {
@@ -76,4 +77,16 @@ func removeDuplicate(users udb.Users) udb.Users {
     }
 
     return results
+}
+
+func EventsHandler(w http.ResponseWriter, r *http.Request) {
+
+    events := line.CurrentLogs()
+
+    eventStrings := make([]string, len(events))
+    for i, v := range events {
+        eventStrings[i] = v.String()
+    }
+
+    redererer.JSON(w, http.StatusOK, eventStrings)
 }

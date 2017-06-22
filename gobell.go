@@ -39,6 +39,7 @@ func main() {
         r.HandleFunc("/line", line.HttpHandler)
         r.Handle("/list", &handler.AuthHandler{handler.ListHandler}).Methods(http.MethodGet)
         r.Handle("/users", &handler.AuthHandler{handler.UsersHandler}).Methods(http.MethodGet)
+        r.Handle("/events", &handler.AuthHandler{handler.EventsHandler}).Methods(http.MethodGet)
         r.HandleFunc("/login", handler.LoginHandler).Methods(http.MethodPost)
         user := r.PathPrefix("/user").Subrouter()
         user.Handle("/list", &handler.AuthHandler{handler.UserListHandler}).Methods(http.MethodGet)

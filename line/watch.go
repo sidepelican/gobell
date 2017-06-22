@@ -6,6 +6,7 @@ import (
     "path"
     "path/filepath"
     "time"
+    "container/list"
 
     "github.com/sidepelican/gobell/config"
     "github.com/sidepelican/gobell/udb"
@@ -15,6 +16,18 @@ import (
 )
 
 var currentUsers udb.Users
+
+var currentLogs *list.List = list.New()
+
+func CurrentLogs() []WatchLog {
+    ret := make([]WatchLog, currentLogs.Len())
+    i := 0
+    for e := currentLogs.Front(); e != nil; e = e.Next() {
+        ret[i] = e.Value.(WatchLog)
+        i ++
+    }
+    return ret
+}
 
 func StartFileWatcher() error {
 
@@ -93,6 +106,17 @@ func watchEventHandler(op fsnotify.Op, filePath string) {
     leftUsers := currentUsers.Difference(latestUsers)
 
     currentUsers = latestUsers
+
+    // queue
+    for _, u := range cameUsers {
+        currentLogs.PushBack(WatchLog{u, CAME})
+    }
+    for _, u := range leftUsers {
+        currentLogs.PushBack(WatchLog{u, LEFT})
+    }
+    for currentLogs.Len() > 100 {
+        currentLogs.Remove(currentLogs.Front())
+    }
 
     // notify
     NotifyCameAndLeftUsers(cameUsers, leftUsers)
